@@ -1,5 +1,5 @@
 package com.mindhub.AppHomeBanking.repositories;
-
+//JPA REST REPOSITORY
 import com.mindhub.AppHomeBanking.models.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 
