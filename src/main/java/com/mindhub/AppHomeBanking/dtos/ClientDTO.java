@@ -7,11 +7,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ClientDTO {
-
+    private Long id;
     private String name;
     private String lastName;
     private String email;
-private Long id;
+
 
     private List<AccountDTO> accounts;
     public ClientDTO(Client client) {
@@ -24,11 +24,15 @@ private Long id;
 
         this.email = client.getEmail();
 
-        this.accounts = client //objeto de tipo Client
-                .getAccount() // set de account
-                .stream()// stream de account
-                .map(account ->new AccountDTO(account)) //stream de accounts dto
-                .collect(Collectors.toList()); // set de accounts dto
+        this.accounts = client
+                .getAccount()
+                .stream()
+                .map(account ->new AccountDTO(account))
+                .collect(Collectors.toList());
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -41,10 +45,6 @@ private Long id;
 
     public String getEmail() {
         return email;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public List<AccountDTO> getAccounts() {

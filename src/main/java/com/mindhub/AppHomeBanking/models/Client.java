@@ -17,7 +17,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO, generator = "native")
     @GenericGenerator(name ="native", strategy = "native")
-private long id;
+    private long id;
     private String name;
     private String lastName;
     private String email;
@@ -26,7 +26,6 @@ private long id;
     //Cuando vaya a la bd nos traiga la propiedad client, o sea propiedad donde se estable la relación.
     // o donde se va a dar la relación
     @OneToMany(mappedBy = "client" , fetch = FetchType.EAGER)
-
     //propiedad donde tendre las cuentas pertenecientes a este cliente
 private Set<Account> accounts = new HashSet<>() ;// new Hashset<>() generar un espacio para mi lista, constructor de Set.
 
@@ -74,9 +73,10 @@ private Set<Account> accounts = new HashSet<>() ;// new Hashset<>() generar un e
         return accounts;
     }
 
+
     public void addAccount(Account account){//Este metodo recibe una cuenta(objeto) de la clase Account
         account.setClient(this) ;//Le Asigno la cuenta al cliente que este llamando este metodo
-        account.add(accounts); //A la propiedad accounts de esta clase, le vamos a agregar la cuenta que recibimos por parametro
+       accounts.add(account);//A la propiedad accounts de esta clase, le vamos a agregar la cuenta que recibimos por parametro
     }
 
     @Override

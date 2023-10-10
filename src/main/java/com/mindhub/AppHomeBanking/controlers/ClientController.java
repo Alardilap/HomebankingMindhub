@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,29 +23,27 @@ public class ClientController {
     private ClientRepositories clientRepositories;
 
 
-//    public Client addClient(@RequestBody Client client) {
-//        return clientRepositories.save(client);
-//    }
-    @RequestMapping("/clients")
-    public List<ClientDTO> getClients() {
 
-        List<Client> clients = clientRepositories.findAll();
+    @GetMapping("/clients")
+    public Set<ClientDTO> getClients() {
 
-        Stream<Client> streamClients = clients.stream();
+//        List<Client> clients = clientRepositories.findAll();
+//
+//        Stream<Client> streamClients = clients.stream();
+//
+//        Stream<ClientDTO> streamClientsDto = streamClients.map(client -> new ClientDTO(client));
+//
+//        Set<ClientDTO> clientsDtos = streamClientsDto.collect(Collectors.toSet());
+//
+//        return clientsDtos;
 
-        Stream<ClientDTO> streamClientsDto = streamClients.map(client -> new ClientDTO(client));
-
-        List<ClientDTO> clientsDtos = streamClientsDto.collect(Collectors.toList());
-
-        return clientsDtos;
+       return clientRepositories.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toSet());
 
     };
 
-    @RequestMapping("/clients/{id}")
+    @GetMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id){
-
         return clientRepositories.findById(id).map(ClientDTO::new).orElse( null);
-
     }
 
 

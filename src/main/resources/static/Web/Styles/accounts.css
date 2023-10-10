@@ -1,4 +1,26 @@
-.card{
+/* .card{
     height: 12rem;
-    background-color: rgb(141, 138, 138) !important;
+    background-color: rgb(241, 236, 236) !important;
+} */
+.titulo-banco{
+    color: #71B0FF !important;
+    font-weight: 800 !important;
+    margin: 1rem;
+}
+
+.card{
+    border-radius: 10px;
+    border: 1px solid black;
+    
+}
+
+.card-text{
+    color: rgb(0, 0, 0) !important;
+    font-weight: 700 !important;
+
+}
+.bienvenida-usuario{
+    color: #11243B;
+    font-weight: 800;
+    text-align: center;
 }

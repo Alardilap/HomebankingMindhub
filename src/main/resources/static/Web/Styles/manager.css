@@ -1,0 +1,76 @@
+/* *{
+  border: 1px solid red;
+} */
+
+body{
+    background-color: rgb(234, 235, 236);
+    
+}
+.formulario{
+    background-color: white;
+    min-height:25rem;
+    width: 28rem;
+    border-radius: 0.5rem;
+}
+.inputs{
+    width: 24rem;
+    margin: 0.5rem;
+    
+}
+label{
+    font-weight: 600;
+    color: rgb(175, 173, 170);
+    font-size: 1rem;
+    margin: 1rem;
+}
+.btn {
+    transition: none !important;
+    background-color: #4c9e4c !important;
+border:none;
+
+  }
+  .btn:hover {
+    background-color: #4cbd4c !important;
+ border:none;
+   
+  }
+  .inputs::placeholder {
+    font-size: 16px; 
+    font-weight: lighter;
+    color: rgb(199, 199, 194);
+  }
+ 
+  .inputs:focus {
+    border: 2px solid #ccc; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
+    outline: none;}
+    .table {
+        width: 130%;
+        border-collapse: collapse; 
+        margin-bottom: 20px;
+      }
+      
+      /* Estilos para el encabezado de la tabla */
+      .table th {
+        background-color: #d3d3d4; 
+        color: #fff;
+        text-align: left; 
+        padding: 10px;
+      }
+      
+      /* Estilos para las celdas de la tabla */
+      .table td, .table th {
+        border: 1px solid #ccc; 
+        padding: 8px; 
+      }
+      
+      /* Estilos para filas alternas */
+      .table tbody tr:nth-child(even) {
+        text-align: center;
+        background-color: #f2f2f2; 
+      }
+      .data{
+    background-color: white;
+    padding: 1rem;
+    border-radius: 2rem;
+      }

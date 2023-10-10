@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,11 +20,14 @@ public class Account {
 
 
 
-    //Establezco el tipo de relacion que tendran mis clases
+    //Establezco el tipo de relación que tendran mis clases
     @ManyToOne(fetch = FetchType.EAGER)
     //Propiedad donde voy a ver el cliente perteneciente de esta cuenta
-    @JoinColumn(name= "clienteasociado")
+    @JoinColumn(name= "clienteAsociado")
     private Client client;
+
+@OneToMany(mappedBy="account", fetch = FetchType.EAGER)
+private Set<Transaction> transactions = new HashSet<>();
 
     public Account(){
 
@@ -75,7 +79,14 @@ public class Account {
         this.client = client;
     }
 
-    public void add(Set<Account> accounts) {
+
+    public Set<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void addTransaction(Transaction transaction){//Este metodo recibe una cuenta(objeto) de la clase Account
+        transaction.setAccount(this) ;//Le Asigno la cuenta al cliente que este llamando este metodo
+        transactions.add(transaction); //A la propiedad accounts de esta clase, le vamos a agregar la cuenta que recibimos por parametro
     }
 
     @Override
