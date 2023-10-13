@@ -25,7 +25,9 @@ createApp({
                 })
                 .catch((err) => console.log(err));
         },
-
+        loadDate(date) {
+            return moment(date).format('lll');
+        }
 
     },
 }).mount('#app');

@@ -18,11 +18,8 @@ import static java.util.stream.Collectors.toList;
 @RequestMapping("/api")
 public class ClientController {
 
-
     @Autowired
     private ClientRepositories clientRepositories;
-
-
 
     @GetMapping("/clients")
     public Set<ClientDTO> getClients() {
@@ -37,13 +34,15 @@ public class ClientController {
 //
 //        return clientsDtos;
 
-       return clientRepositories.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toSet());
+        return clientRepositories.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toSet());
 
-    };
+    }
+
+    ;
 
     @GetMapping("/clients/{id}")
-    public ClientDTO getClient(@PathVariable Long id){
-        return clientRepositories.findById(id).map(ClientDTO::new).orElse( null);
+    public ClientDTO getClient(@PathVariable Long id) {
+        return clientRepositories.findById(id).map(ClientDTO::new).orElse(null);
     }
 
 

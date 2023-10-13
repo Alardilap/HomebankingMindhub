@@ -4,6 +4,7 @@ createApp({
     data() {
         return {
             accounts: [],
+            loans: [],
         };
     },
     created() {
@@ -14,16 +15,19 @@ createApp({
     methods: {
         loadData() {
             axios
-                .get("/api/accounts")
+                .get("/api/clients/2")
                 .then((response) => {
                     // console.log(response.data)
-                    this.accounts = response.data.sort((a, b) => a.id - b.id)
-                    console.log(this.accounts)
+                    // this.accounts = response.data.sort((a, b) => a.id - b.id)
+                    this.accounts = response.data.accounts.sort((a, b) => a.id - b.id)
+                    this.loans = response.data.loans
+                    console.log(this.loans)
 
                 })
                 .catch((err) => console.log(err));
 
         },
+
         obtenerId() {
 
 

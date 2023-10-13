@@ -23,4 +23,30 @@
     color: #11243B;
     font-weight: 800;
     text-align: center;
+    font-size: 2rem;
+}
+.encabezados{
+    color: #71B0FF !important;
+    font-weight: 800
+}
+
+.cuerpo{
+    font-weight: lighter;
+    color: #adaeaf;
+}
+table {
+    border-collapse: collapse;
+    background-color: white;
+   
+}
+
+.encabezados th {
+    border: 1px solid #cecccc; /* Establece el borde de las celdas encabezadas */
+    padding: 8px; /* Añade espacio alrededor del contenido de las celdas encabezadas */
+}
+
+.cuerpo td {
+    border: 1px solid #cecccc; /* Establece el borde de las celdas del cuerpo de la tabla */
+    padding: 8px; /* Añade espacio alrededor del contenido de las celdas del cuerpo de la tabla */
+    border-radius: 2rem;
 }

@@ -11,14 +11,14 @@
     <link rel="stylesheet" href="../Styles/styles.css">
     <link rel="stylesheet" href="../Styles/account.css">
     <link rel="shortcut icon" href="../Images/Logobanco.png" type="image/x-icon">
-
+    <link rel="icon" type="image/x-icon" href="../Images/logo.jpeg">
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid p-0">
-                <img src="../Images/Logobanco.png" style="height: 5rem;" alt="logo">
+                <img src="../Images/logo.jpeg" style="height: 5rem;" alt="logo">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -70,7 +70,7 @@
                     <tr v-for="transaction of transactions" v-if="">
                         <td>{{transaction.type}}</td>
                         <td>{{transaction.amount}}</td>
-                        <td>{{transaction.date}}</td>
+                        <td>{{loadDate(transaction.date)}}</td>
                         <td>{{transaction.description}}</td>
                     </tr>
                 </tbody>
@@ -101,6 +101,7 @@
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/JavaScript" src="https://momentjs.com/downloads/moment.js"></script>
     <script src="../script/account.js"></script>
 </body>
 

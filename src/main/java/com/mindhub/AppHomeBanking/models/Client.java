@@ -1,22 +1,20 @@
 package com.mindhub.AppHomeBanking.models;
-
-
 //Esta línea de código especifica el paquete al que pertenece la clase Client. Los paquetes son una forma de organizar y agrupar clases relacionadas en un proyecto Java
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-@Entity//crea una tabal en la bd con los datos o propiedades de esta clase Client
-
-
-
+@Entity//crea una tabla en la bd con los datos o propiedades de esta clase Client
 public class Client {
     @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name ="native", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private long id;
     private String name;
     private String lastName;
@@ -25,10 +23,11 @@ public class Client {
     //Establezco el tipo de relacion que tendran mis clases
     //Cuando vaya a la bd nos traiga la propiedad client, o sea propiedad donde se estable la relación.
     // o donde se va a dar la relación
-    @OneToMany(mappedBy = "client" , fetch = FetchType.EAGER)
-    //propiedad donde tendre las cuentas pertenecientes a este cliente
-private Set<Account> accounts = new HashSet<>() ;// new Hashset<>() generar un espacio para mi lista, constructor de Set.
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)//propiedad donde tendre las cuentas pertenecientes a este cliente
+    private Set<Account> accounts = new HashSet<>();// new Hashset<>() generar un espacio para mi lista, constructor de Set.
 
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<ClientLoan> clientLoans = new HashSet<>();
 
     public Client() {
     };
@@ -40,6 +39,15 @@ private Set<Account> accounts = new HashSet<>() ;// new Hashset<>() generar un e
     }
 
     //Metodos
+
+    @JsonIgnore
+    public List<Loan> getLoans(){
+        return  clientLoans.stream().map(Loan -> Loan.getLoans()).collect(Collectors.toList());
+    };
+
+    public void getLoans(Client client){
+     client.getLoans(this);
+    }
 
     public String getName() {
         return name;
@@ -73,10 +81,17 @@ private Set<Account> accounts = new HashSet<>() ;// new Hashset<>() generar un e
         return accounts;
     }
 
+    public Set<ClientLoan> getClientLoans() {
+        return clientLoans;
+    }
+    public void addClientLoan(ClientLoan clientLoan){
+        clientLoan.setClients(this);
+        clientLoans.add(clientLoan);
+    }
 
-    public void addAccount(Account account){//Este metodo recibe una cuenta(objeto) de la clase Account
-        account.setClient(this) ;//Le Asigno la cuenta al cliente que este llamando este metodo
-       accounts.add(account);//A la propiedad accounts de esta clase, le vamos a agregar la cuenta que recibimos por parametro
+    public void addAccount(Account account) {//Este metodo recibe una cuenta(objeto) de la clase Account
+        account.setClient(this);//Le Asigno la cuenta al cliente que este llamando este metodo
+        accounts.add(account);//A la propiedad accounts de esta clase, le vamos a agregar la cuenta que recibimos por parametro
     }
 
     @Override

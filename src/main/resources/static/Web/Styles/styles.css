@@ -27,6 +27,7 @@ footer{
 
 body{
     background-color: #dedfe067;
+    border: white
 }
 .titulo-banco-footer{
     color: #71B0FF !important;
@@ -43,4 +44,31 @@ padding: 0;
    display: flex;
 flex-direction: column;
 gap: 3rem;
+}
+/* /////////////////////////// */
+.carousel-inner{
+    height: 27rem;
+    object-fit: cover;
+    width: 50%
+}
+
+#carouselExample {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 0;
+}
+
+.carousel-inner {
+    width: 100%;
+}
+
+.content-pane {
+    background-color: #181744; /* Fondo morado */
+    padding: 20px;
+    box-sizing: border-box;
+    color: #fff; /* Texto en color blanco */
+}
+
+.logo{
+    width: 8rem;
 }

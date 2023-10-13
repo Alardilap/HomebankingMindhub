@@ -1,12 +1,8 @@
 package com.mindhub.AppHomeBanking;
 //REST REPOSITORY
 
-import com.mindhub.AppHomeBanking.models.Account;
-import com.mindhub.AppHomeBanking.models.Client;
-import com.mindhub.AppHomeBanking.models.Transaction;
-import com.mindhub.AppHomeBanking.repositories.AccountRepositories;
-import com.mindhub.AppHomeBanking.repositories.ClientRepositories;
-import com.mindhub.AppHomeBanking.repositories.TransactionRepositories;
+import com.mindhub.AppHomeBanking.models.*;
+import com.mindhub.AppHomeBanking.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.mindhub.AppHomeBanking.models.TransactionType.CREDIT;
 import static com.mindhub.AppHomeBanking.models.TransactionType.DEBIT;
@@ -23,10 +20,12 @@ public class HomebankingApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(HomebankingApplication.class, args);
-    };
+    }
+
+    ;
 
     @Bean
-    public CommandLineRunner initData(ClientRepositories clientRepositories, AccountRepositories accountRepositories, TransactionRepositories transactionRepositories) {
+    public CommandLineRunner initData(ClientRepositories clientRepositories, AccountRepositories accountRepositories, TransactionRepositories transactionRepositories, LoanRepositories loanRepositories, ClientLoanRepositories clientLoanRepositories) {
         return args -> {
 
             LocalDate date = LocalDate.now();
@@ -69,23 +68,59 @@ public class HomebankingApplication {
             transactionRepositories.save(SecondTransaction);
 
 
-            Transaction Primer = new Transaction(CREDIT, "Pay Taxes" , dateTime, 455333.33);
+            Transaction Primer = new Transaction(CREDIT, "Pay Taxes", dateTime, 455333.33);
             melbaAccountOne.addTransaction(Primer);
-           transactionRepositories.save(Primer);
+            transactionRepositories.save(Primer);
 
-            Transaction Second = new Transaction(CREDIT, "Pay Pool" , dateTime, 45.3);
+            Transaction Second = new Transaction(CREDIT, "Pay Pool", dateTime, 45.3);
             melbaAccountOne.addTransaction(Second);
             transactionRepositories.save(Second);
 
 
-            Transaction Quarter = new Transaction(DEBIT, "Buy cream and beer" , dateTime, -45.33);
+            Transaction Quarter = new Transaction(DEBIT, "Buy cream and beer", dateTime, -45.33);
             melbaAccountTwo.addTransaction(Quarter);
             transactionRepositories.save(Quarter);
 
 
-            Transaction Fifth = new Transaction(DEBIT, "Pay Internet service" , dateTime, -4.3);
+            Transaction Fifth = new Transaction(DEBIT, "Pay Internet service", dateTime, -4.3);
             melbaAccountTwo.addTransaction(Fifth);
             transactionRepositories.save(Fifth);
+
+            List<Integer> paymentsMortgage = List.of(12, 24, 36, 48, 60);
+            Loan Mortgageloan = new Loan("mortgage", 5000000, paymentsMortgage);
+            loanRepositories.save(Mortgageloan);
+
+
+            List<Integer> paymentsStaff = List.of(6, 12, 24);
+            Loan Staffloan = new Loan("staff", 1000000, paymentsStaff);
+            loanRepositories.save(Staffloan);
+
+
+            Loan Autoloan = new Loan("Automotive", 300000, List.of(6, 12, 24, 36));
+            loanRepositories.save(Autoloan);
+
+
+            ClientLoan clientLoanMelba1 = new ClientLoan(400000, 60);
+            melba.addClientLoan(clientLoanMelba1);
+            Mortgageloan.addClientLoan(clientLoanMelba1);
+            clientLoanRepositories.save(clientLoanMelba1);
+
+
+            ClientLoan clientLoanMelba2 = new ClientLoan(50000, 12);
+            melba.addClientLoan(clientLoanMelba2);
+            Staffloan.addClientLoan(clientLoanMelba2);
+            clientLoanRepositories.save(clientLoanMelba2);
+
+            ClientLoan clientLoanMarco1 = new ClientLoan(1000000, 24);
+            marco.addClientLoan(clientLoanMarco1);
+            Staffloan.addClientLoan(clientLoanMarco1);
+            clientLoanRepositories.save(clientLoanMarco1);
+
+            ClientLoan clientLoanMarco2 = new ClientLoan(2000000, 36);
+            marco.addClientLoan(clientLoanMarco2);
+            Autoloan.addClientLoan(clientLoanMarco2);
+            clientLoanRepositories.save(clientLoanMarco2);
+
         };
     }
 }
