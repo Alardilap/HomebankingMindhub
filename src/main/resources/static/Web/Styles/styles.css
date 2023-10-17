@@ -1,74 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.containerIndex{
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+}
 header{
-    
-    background-color: #142d4c !important;
-    background-color: #11243B !important;
+    background-color: #11243B;
 }
-
-.navbar{
-height: 5rem;
-
+.logoHeader{
+    height: 4rem;
 }
-
 .nav-link{
     color: white ;
     font-weight: 800;
     font-size: 20px;
-
 }
-
-a{
-    text-decoration: underline;
+.nav-link:hover{
+    color: white;
 }
-
 footer{
     color: white;
-    background-color: #11243B !important;
-}
-
-body{
-    background-color: #dedfe067;
-    border: white
+    background-color: #11243B;
 }
 .titulo-banco-footer{
-    color: #71B0FF !important;
-    font-weight: 800 !important;
-    font-size: 2rem;
+    color: #71B0FF ;
+    font-weight: 800 ;
+    font-size: 1.2rem;
 }
 .info-footer{
-font-size: 20px;
-font-weight: 800;
-padding: 0;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
 }
-
-.items-footer{
-   display: flex;
-flex-direction: column;
-gap: 3rem;
+p:hover{
+        color: #1c314b;
 }
-/* /////////////////////////// */
-.carousel-inner{
-    height: 27rem;
-    object-fit: cover;
-    width: 50%
+i:hover{
+        color: #1973b8;  
 }
-
-#carouselExample {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    gap: 0;
+@media (min-width: 768px) {
+.info-footer{
+display: flex;
+  gap: 3rem;
+  padding-bottom: 2rem;
+  margin-bottom: 0;
+  font-size: 1.3rem;
 }
-
-.carousel-inner {
-    width: 100%;
+.titulo-banco-footer{
+    padding-bottom: 2rem !important;
 }
-
-.content-pane {
-    background-color: #181744; /* Fondo morado */
-    padding: 20px;
-    box-sizing: border-box;
-    color: #fff; /* Texto en color blanco */
+p{
+    padding-left: 2rem;
 }
-
-.logo{
-    width: 8rem;
+.pDos{
+padding-bottom: 3rem;
+}
+.div-container{
+    flex-direction: row !important;
+    justify-content: space-between;
+    padding-right: 2rem;
+    align-items: start !important;
+margin: 2rem 0rem;
+}
+.logoHeader{
+height: 5rem;
+}
 }

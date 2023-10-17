@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.mindhub.AppHomeBanking.models.TransactionType.CREDIT;
 import static com.mindhub.AppHomeBanking.models.TransactionType.DEBIT;
-
 @SpringBootApplication
 public class HomebankingApplication {
 
@@ -22,10 +22,8 @@ public class HomebankingApplication {
         SpringApplication.run(HomebankingApplication.class, args);
     }
 
-    ;
-
     @Bean
-    public CommandLineRunner initData(ClientRepositories clientRepositories, AccountRepositories accountRepositories, TransactionRepositories transactionRepositories, LoanRepositories loanRepositories, ClientLoanRepositories clientLoanRepositories) {
+    public CommandLineRunner initData(ClientRepositories clientRepositories, AccountRepositories accountRepositories, TransactionRepositories transactionRepositories, LoanRepositories loanRepositories, ClientLoanRepositories clientLoanRepositories, CardRepositories cardRepositories) {
         return args -> {
 
             LocalDate date = LocalDate.now();
@@ -120,6 +118,16 @@ public class HomebankingApplication {
             marco.addClientLoan(clientLoanMarco2);
             Autoloan.addClientLoan(clientLoanMarco2);
             clientLoanRepositories.save(clientLoanMarco2);
+
+            Card cardOne =  new Card("Melba Morel",CardType.DEBIT,CardColor.GOLD,"1324-7689-9876-5673",145,date,date.plusYears(5));
+            Card cardTwo =  new Card("Melba Morel",CardType.CREDIT,CardColor.TITANIUM,"1342-7219-9246-0973",123,date,date.plusYears(5));
+            List<Card> cardsMelba= Arrays.asList(cardOne,cardTwo);
+            melba.addAllCards(cardsMelba);
+            cardRepositories.saveAll(cardsMelba);
+
+            Card cardMarco =  new Card("Marco Miquel",CardType.CREDIT,CardColor.SILVER,"0804-1987-0804-1987",395,date,date.plusYears(5));
+            marco.addCard(cardMarco);
+            cardRepositories.save(cardMarco);
 
         };
     }

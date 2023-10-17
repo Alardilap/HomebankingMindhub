@@ -8,7 +8,4 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 //*JPA ESCUCHA LO QUE RECIBE DE REST REPOSITORY Y SE COMUNICA CON LA BD Y OBTIENE LA INFO. LE PASA ESTOS DATOS A REST REPOSITORY Y ESTE DEVUELVE LA INFO AL USUARIO.@
 @RepositoryRestResource
 public interface ClientRepositories extends JpaRepository <Client, Long>{
-
-
-
 }

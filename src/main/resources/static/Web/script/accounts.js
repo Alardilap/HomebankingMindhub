@@ -25,13 +25,6 @@ createApp({
 
                 })
                 .catch((err) => console.log(err));
-
         },
-
-        obtenerId() {
-
-
-        }
-
     },
 }).mount('#app');

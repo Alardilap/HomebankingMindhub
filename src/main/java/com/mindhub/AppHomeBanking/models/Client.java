@@ -29,6 +29,8 @@ public class Client {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();
 
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<Card> cards = new HashSet<>();
     public Client() {
     };
 
@@ -39,7 +41,6 @@ public class Client {
     }
 
     //Metodos
-
     @JsonIgnore
     public List<Loan> getLoans(){
         return  clientLoans.stream().map(Loan -> Loan.getLoans()).collect(Collectors.toList());
@@ -84,6 +85,27 @@ public class Client {
     public Set<ClientLoan> getClientLoans() {
         return clientLoans;
     }
+
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public void setClientLoans(Set<ClientLoan> clientLoans) {
+        this.clientLoans = clientLoans;
+    }
+
+    public Set<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
+    }
+
     public void addClientLoan(ClientLoan clientLoan){
         clientLoan.setClients(this);
         clientLoans.add(clientLoan);
@@ -92,6 +114,16 @@ public class Client {
     public void addAccount(Account account) {//Este metodo recibe una cuenta(objeto) de la clase Account
         account.setClient(this);//Le Asigno la cuenta al cliente que este llamando este metodo
         accounts.add(account);//A la propiedad accounts de esta clase, le vamos a agregar la cuenta que recibimos por parametro
+    }
+    public void addCard(Card card) {
+        card.setClient(this);
+        cards.add(card);
+    }
+
+    public void addAllCards(List<Card> cards){
+       for (Card card : cards){
+           this.addCard(card);
+       }
     }
 
     @Override

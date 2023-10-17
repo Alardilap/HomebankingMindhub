@@ -1,5 +1,5 @@
 table {
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
 }
 
@@ -7,6 +7,7 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
+    font-size:0.6rem;
 }
 
 th {
@@ -20,3 +21,17 @@ tr:nth-child(even) {
 tr:hover {
     background-color: #ddd;
 }
+.card-text{
+    font-size:1rem;
+}
+@media (min-width: 768px) {
+   th,td{
+    font-size: 1rem;
+   }
+   .card-text{
+    font-size:1.3rem;
+}
+.card{
+    width: 22rem !important;
+}
+    }

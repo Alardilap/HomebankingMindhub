@@ -17,7 +17,6 @@ import static java.util.stream.Collectors.toList;
 @RestController
 @RequestMapping("/api")
 public class ClientController {
-
     @Autowired
     private ClientRepositories clientRepositories;
 
@@ -33,18 +32,11 @@ public class ClientController {
 //        Set<ClientDTO> clientsDtos = streamClientsDto.collect(Collectors.toSet());
 //
 //        return clientsDtos;
-
         return clientRepositories.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toSet());
-
     }
-
-    ;
-
     @GetMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id) {
         return clientRepositories.findById(id).map(ClientDTO::new).orElse(null);
     }
-
-
 }
 

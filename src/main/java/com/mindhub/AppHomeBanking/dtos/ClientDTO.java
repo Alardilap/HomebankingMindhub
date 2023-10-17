@@ -14,22 +14,32 @@ public class ClientDTO {
     private String email;
     private List<AccountDTO> accounts;
     private List<ClientLoanDTO> loans;
+    private List<CardDTO> cards;
+
+    public ClientDTO() {
+    }
 
     public ClientDTO(Client client) {
         this.id = client.getId();
-        this.name= client.getName();
+        this.name = client.getName();
         this.lastName = client.getLastName();
         this.email = client.getEmail();
         this.accounts = client
                 .getAccount()
                 .stream()
-                .map(account ->new AccountDTO(account))
+                .map(account -> new AccountDTO(account))
                 .collect(Collectors.toList());
-        this.loans= client
+        this.loans = client
                 .getClientLoans()
                 .stream()
-                .map(loan-> new ClientLoanDTO(loan))
+                .map(loan -> new ClientLoanDTO(loan))
                 .collect(Collectors.toList());
+        this.cards = client
+                .getCards()
+                .stream()
+                .map(card -> new CardDTO(card))
+                .collect(Collectors.toList());
+
     }
 
     public Long getId() {
@@ -54,5 +64,9 @@ public class ClientDTO {
 
     public List<ClientLoanDTO> getLoans() {
         return loans;
+    }
+
+    public List<CardDTO> getCards() {
+        return cards;
     }
 }
