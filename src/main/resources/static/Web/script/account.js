@@ -17,7 +17,7 @@ createApp({
             let id = queryParams.get("id")
             console.log(id)
             axios
-                .get(`/api/account/${id}`)
+                .get(`/api/accounts/${id}`)
                 .then((response) => {
                     this.account = response.data
                     this.transactions = response.data.transactions

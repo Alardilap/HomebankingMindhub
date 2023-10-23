@@ -12,18 +12,19 @@ public class ClientDTO {
     private String name;
     private String lastName;
     private String email;
+    private String password;
     private List<AccountDTO> accounts;
     private List<ClientLoanDTO> loans;
     private List<CardDTO> cards;
 
     public ClientDTO() {
     }
-
     public ClientDTO(Client client) {
         this.id = client.getId();
         this.name = client.getName();
         this.lastName = client.getLastName();
         this.email = client.getEmail();
+        this.password= client.getPassword();
         this.accounts = client
                 .getAccount()
                 .stream()
@@ -58,6 +59,9 @@ public class ClientDTO {
         return email;
     }
 
+    public String getPassword() {
+        return password;
+    }
     public List<AccountDTO> getAccounts() {
         return accounts;
     }
@@ -68,5 +72,8 @@ public class ClientDTO {
 
     public List<CardDTO> getCards() {
         return cards;
+    }
+
+    public void setError(String missingData) {
     }
 }

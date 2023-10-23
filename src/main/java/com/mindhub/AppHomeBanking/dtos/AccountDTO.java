@@ -1,5 +1,4 @@
 package com.mindhub.AppHomeBanking.dtos;
-
 import com.mindhub.AppHomeBanking.models.Account;
 
 import java.time.LocalDate;

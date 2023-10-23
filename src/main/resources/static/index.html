@@ -8,101 +8,207 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="shortcut icon" href="../Images/Logobanco.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="./Web/Images/logo.jpeg" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="./Web/Styles/styles.css">
     <link rel="stylesheet" href="./Web/Styles/index.css">
-    <link rel="icon" type="image/x-icon" href="./Web/Images/logo.jpeg">
+
 </head>
 
 <body>
-    <div class="containerIndex">
-        <header>
-            <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid gap-3">
-                    <a href="#"><img class="logoHeader" src="./Web/Images/logo.jpeg" alt="logo"></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-end mr-5" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item ">
-                                <a class="nav-link" aria-current="page" href="./Web/Pages/accounts.html">Accounts</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Cards</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Loans</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Transactions</a>
-                            </li>
+    <div id="app-login">
+        <div class="containerIndex">
+            <header>
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container-fluid gap-3">
+                        <a href="#"><img class="logoHeader" src="./Web/Images/logo.jpeg" alt="logo"></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-end mr-5" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item ">
+                                    <a class="nav-link" aria-current="page"
+                                        href="./Web/Pages/accounts.html">Accounts</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Cards</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Loans</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Transactions</a>
+                                </li>
 
-                        </ul>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color: white; font-size: 22px;"><i
+                                            class="fa-solid fa-user-plus" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color: white; font-size: 22px;"
+                                        @click.prevent="signOut()"><i class="fas fa-sign-out-alt"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
-        </header>
-        <main></main>
-
-        <main>
-            <div id="carouselExample" class="carousel slide">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="./Web/Images/indexagilebank.avif" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="./Web/Images/indexagilebank2.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="./Web/Images/prestamo personal.avif" class="d-block w-100" alt="...">
-                    </div>
-                </div>
-                <div class="content-pane">
-                    <div class="content">
-                        <p class="descripcion">"We are the bank with the solutions your business needs."</p>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-center imagenes">
-                <div> <img class="logo" src="./Web/Images/miscuentas.jpg" alt="logocuentas">
-                    <p>I need an account</p>
-                </div>
+                </nav>
+            </header>
+            <main>
                 <div>
-                    <img class="logo" src="./Web/Images/mistrajetas.png" alt="">
-                    <p> I need a card</p>
-                </div>
-                <div>
-                    <img class="logo" src="./Web/Images/mistransa.jpg" alt="logoprestamos">
-                    <p>I want a loan</p>
-                </div>
-                <div class="align-items-center">
-                    <img class="logo" src="./Web/Images/imagden.png" alt="">
-                    <p>Transactions</p>
-                </div>
-            </div>
-        </main>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-background"></div>
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Agile Bank</h1>
+                                    <button type="button" class="btn-close cerrar" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="p-5">
+                                        <div class="mb-3">
+                                            <label for="exampleInputName1" class="form-label">Name</label>
+                                            <input type="Name" class="form-control" id="exampleInputName1"
+                                                aria-describedby="NameHelp" v-model="inputName">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputLastName1" class="form-label">LastName</label>
+                                            <input type="LastName" class="form-control" id="exampleInputLastName1"
+                                                aria-describedby="LastNameHelp" v-model="inputLastName">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Email</label>
+                                            <input type="Email" class="form-control" id="exampleInputEmail1"
+                                                v-model="inputEmail">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label  mb-2">Password</label>
+                                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                                v-model="inputPassword">
+                                        </div>
+                                        <div class=" d-flex flex-column align-items-center mb-2">
+                                            <button class="button-register mb-3 "
+                                                @click.prevent="register()">Register</button>
+                                            <a class="a-login" href="#" data-bs-toggle="modal"
+                                                data-bs-target="#loginModal">Already have an
+                                                account?<span class="login-link"> Sing in</span></a>
+                                        </div>
 
+                                    </form>
+
+                                </div>
+                                <!-- <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agile Bank</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="mb-3">
+                                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                                    aria-describedby="emailHelp" v-model="loginEmail">
+                                                <span><i class="fas fa-envelope"></i></span>
+                                                <div id="emailHelp" class="form-text"></div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                                <input type="password" class="form-control" id="exampleInputPassword1"
+                                                    v-model="loginPassword">
+                                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                            </div>
+                                            <button type="submit" @click.prevent="login()" class="btn btn-primary">Sing
+                                                In</button>
+                                            <a href="#" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal">Register</i>
+                                            </a>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="carouselExample" class="carousel slide">
+
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="./Web/Images/indexagilebank.avif" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="./Web/Images/indexagilebank2.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="./Web/Images/prestamo personal.avif" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <div class="content-pane">
+                        <div class="content">
+                            <p class="descripcion">"We are the bank with the solutions your business needs."</p>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-center imagenes">
+                    <div> <img class="logo" src="./Web/Images/miscuentas.jpg" alt="logocuentas">
+                        <p>I need an account</p>
+                    </div>
+                    <div>
+                        <img class="logo" src="./Web/Images/mistrajetas.png" alt="">
+                        <p> I need a card</p>
+                    </div>
+                    <div>
+                        <img class="logo" src="./Web/Images/mistransa.jpg" alt="logoprestamos">
+                        <p>I want a loan</p>
+                    </div>
+                    <div class="align-items-center">
+                        <img class="logo" src="./Web/Images/imagden.png" alt="">
+                        <p>Transactions</p>
+                    </div>
+                </div>
+
+            </main>
+        </div>
         <footer>
             <div class="d-flex flex-column align-items-center pt-3 pb-3 div-container">
                 <div class="d-flex flex-column items-footer">
                     <p class="titulo-banco-footer m-0 pb-3">Agile Bank</p>
                     <ul class="info-footer" style="list-style-type: none;">
-                        <li>Seguridad</li>
-                        <li>Aviso legal</li>
-                        <li>Políticas</li>
-                        <li>Reglamento de productos</li>
+                        <li>Security</li>
+                        <li>legal warning</li>
+                        <li>Policies</li>
+                        <li>Product regulations</li>
                     </ul>
                     <p class="m-0 pb-3 pDos">© 2023 Banco Agile Colombia S.A</p>
                 </div>
@@ -119,7 +225,8 @@
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="../script/accounts.js"></script>
+    <!-- <script src="./Web/script/index.js"></script> -->
+    <script src="./Web/script/login.js"></script>
 </body>
 
 </html>

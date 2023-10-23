@@ -24,11 +24,10 @@ public class AccountController {
     return accountRepositories.findAll().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
     }
 
-    @GetMapping("/account/{id}")
+    @GetMapping("/accounts/{id}")
     public AccountDTO getAccount (@PathVariable Long id){//Esta anotación se usa para extraer valores de variables de ruta
     return accountRepositories.findById(id).map(account -> new AccountDTO(account)).orElse(null);
     }
-//HTTP
 
 
 

@@ -2,6 +2,10 @@
     height: 12rem;
     background-color: rgb(241, 236, 236) !important;
 } */
+.navbar-nav{
+    align-items: center;
+    gap: 2rem;
+}
 .titulo-banco{
     color: #71B0FF !important;
     font-weight: 800 !important;

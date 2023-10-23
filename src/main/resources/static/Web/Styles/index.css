@@ -1,4 +1,7 @@
-
+.navbar-nav{
+    align-items: center;
+    gap: 2rem;
+}
 .navbar{
 height: 5rem;
 }
@@ -57,3 +60,4 @@ font-size:2rem;
     background: linear-gradient(45deg, transparent 49.5%, blue 49.5%, blue 50.5%, transparent 50.5%);
     z-index: -1;
 }
+

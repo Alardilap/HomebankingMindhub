@@ -3,6 +3,16 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+.modal-background {
+    background-image: url("../Images/mis-transa.jpg"); /* Reemplaza 'ruta-de-tu-imagen.jpg' con la URL de tu imagen */
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir el contenedor */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen */
+    height: 100%; /* Ajusta la altura del contenedor según tus necesidades */
+    position: absolute; /* Asegura que el contenedor se superponga a otros elementos */
+    width: 100%; /* Ajusta el ancho del contenedor según tus necesidades */
+    z-index: -1; /* Coloca el contenedor detrás del contenido del modal */
+}
 .containerIndex{
     display: grid;
     min-height: 100vh;
@@ -69,4 +79,57 @@ margin: 2rem 0rem;
 .logoHeader{
 height: 5rem;
 }
+}.input-with-icon {
+    position: relative !important; /* Posición relativa para que el ícono esté dentro del input */
+}
+
+.input-with-icon i {
+    position: absolute !important; /* Posición absoluta para el ícono */
+    top: 50%; /* Alinea verticalmente al centro */
+    transform: translateY(-50%); /* Alinea verticalmente al centro */
+    right: 10px; /* Ajusta el espacio a la derecha del ícono */
+    color: #888; /* Color del ícono (puedes personalizarlo) */
+}
+
+.input-with-icon input {
+    padding-right: 30px; /* Ajusta el espacio a la derecha del input para acomodar el ícono */
+}
+.login-link {
+    color: #1f518d !important; 
+   font-weight: 800;
+    text-decoration: none !important; /* Quita la línea debajo del enlace */
+
+}
+.a-login{
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+}    
+                              
+.button-register {
+    background-color: #ff004c !important; /* Color de fondo */
+    background-color: #11243B !important;
+    color: #fff; /* Color del texto */
+    font-weight: 500;
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Espaciado interno (ajusta según tu preferencia) */
+    border-radius: 5px; /* Bordes redondeados (ajusta según tu preferencia) */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    font-size: 16px; /* Tamaño de fuente (ajusta según tu preferencia) */
+    width: 12rem;
+}
+
+/* Estilos para cambiar el color al pasar el mouse sobre el botón */
+.register-button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el mouse */
+}
+.login-link:hover{
+   color: red; 
+}
+.form-label{
+    color: #9c9b9bce;
+    font-weight: 600;
+}
+.btn-close{
+color: #11243B  !important;
 }

@@ -33,7 +33,7 @@ createApp({
         },
         postClient(name, lastName, email) {
             axios
-                .post("/rest/clients", {
+                .post("/api/clients", {
                     name: name,
                     lastName: lastName,
                     email: email,

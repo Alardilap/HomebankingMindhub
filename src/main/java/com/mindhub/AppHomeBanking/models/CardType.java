@@ -1,7 +1,6 @@
 package com.mindhub.AppHomeBanking.models;
 
 public enum CardType {
-
-    CREDIT,
-    DEBIT,
+    CREDIT, //0
+    DEBIT,//1
 }

@@ -2,8 +2,8 @@ package com.mindhub.AppHomeBanking.models;
 //Esta línea de código especifica el paquete al que pertenece la clase Client. Los paquetes son una forma de organizar y agrupar clases relacionadas en un proyecto Java
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mindhub.AppHomeBanking.repositories.ClientRepositories;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +19,9 @@ public class Client {
     private String name;
     private String lastName;
     private String email;
+    private String password;
 
+//    private final ClientRepositories repositories;
     //Establezco el tipo de relacion que tendran mis clases
     //Cuando vaya a la bd nos traiga la propiedad client, o sea propiedad donde se estable la relación.
     // o donde se va a dar la relación
@@ -31,20 +33,32 @@ public class Client {
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Card> cards = new HashSet<>();
-    public Client() {
-    };
+//    public Client(ClientRepositories repositories) {
+//
+//        this.repositories = repositories;
+//    };
 
-    public Client(String name, String lastName, String email) {
+    public Client(){}
+    public Client(String name, String lastName, String email, String password) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
+        this.password= password;
     }
 
-    //Metodos
+    //Metodos accesores
     @JsonIgnore
     public List<Loan> getLoans(){
         return  clientLoans.stream().map(Loan -> Loan.getLoans()).collect(Collectors.toList());
     };
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public void getLoans(Client client){
      client.getLoans(this);
@@ -106,7 +120,8 @@ public class Client {
         this.cards = cards;
     }
 
-    public void addClientLoan(ClientLoan clientLoan){
+
+        public void addClientLoan(ClientLoan clientLoan){
         clientLoan.setClients(this);
         clientLoans.add(clientLoan);
     }
@@ -119,11 +134,11 @@ public class Client {
         card.setClient(this);
         cards.add(card);
     }
-
     public void addAllCards(List<Card> cards){
        for (Card card : cards){
            this.addCard(card);
        }
+
     }
 
     @Override

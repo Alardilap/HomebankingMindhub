@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 @Entity
 public class Card {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -24,9 +23,7 @@ public class Card {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="client_id")
     private Client client;
-
    public Card(){
-
    }
     public Card( String cardHolder, CardType type, CardColor color, String number, Integer cvv, LocalDate fromDate, LocalDate thruDate) {
         this.cardHolder = cardHolder;

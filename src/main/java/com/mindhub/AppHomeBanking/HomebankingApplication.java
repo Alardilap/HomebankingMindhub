@@ -3,10 +3,12 @@ package com.mindhub.AppHomeBanking;
 
 import com.mindhub.AppHomeBanking.models.*;
 import com.mindhub.AppHomeBanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,6 +19,9 @@ import static com.mindhub.AppHomeBanking.models.TransactionType.CREDIT;
 import static com.mindhub.AppHomeBanking.models.TransactionType.DEBIT;
 @SpringBootApplication
 public class HomebankingApplication {
+
+    @Autowired
+    private PasswordEncoder passwordEnconder;
 
     public static void main(String[] args) {
         SpringApplication.run(HomebankingApplication.class, args);
@@ -29,8 +34,12 @@ public class HomebankingApplication {
             LocalDate date = LocalDate.now();
             LocalDateTime dateTime = LocalDateTime.now();
 
-            Client marco = new Client("Marco", "Miquel", "Marquitoelmejor@gmail.com");
+            Client marco = new Client("Marco", "Miquel", "Marquitoelmejor@gmail.com", passwordEnconder.encode("ale123")); //Estoy utilizando el metodo encode del objeto PasswordEncoder
+            // para encriptar la contraseña de cada usuario ocliente
             clientRepositories.save(marco);
+
+            Client admin = new Client("Admin" , "Admin", "AdminAgileBank@gmail.com", passwordEnconder.encode("administrador") );
+            clientRepositories.save(admin);
 
             Account M1M = new Account("12MM", date, 2344950.5494);
             marco.addAccount(M1M);
@@ -40,7 +49,11 @@ public class HomebankingApplication {
             marco.addAccount(M2M);
             accountRepositories.save(M2M);
 
-            Client melba = new Client("Melba", "Morel", "melbamorel@gmail.com");
+            Client melba = new Client("Melba", "Morel", "melbamorel@gmail.com",passwordEnconder.encode("marco567")); //el metodo enconde se utiliza para tomar una contraseña en texto claro
+            // y generar su versión codificada.
+            // Esta versión codificada es la que se almacena en la base de datos
+            // y se compara con las contraseñas proporcionadas por los usuarios durante el proceso de inicio de sesión para verificar su autenticación.
+            // Esto mejora significativamente la seguridad de las contraseñas en una aplicación.
             clientRepositories.save(melba);
 
 
@@ -53,8 +66,8 @@ public class HomebankingApplication {
             accountRepositories.save(melbaAccountTwo);
 
 
-            clientRepositories.save(new Client("Alejandra", "Ardila", "Alardilap@gmail.com"));
-            clientRepositories.save(new Client("Marquito", "Miquel", "Marquitoelmejor@gmail.com"));
+            clientRepositories.save(new Client("Alejandra", "Ardila", "Alardilap@gmail.com", passwordEnconder.encode("marco123") ));
+            clientRepositories.save(new Client("Marquito", "Miquel", "Marquitojor@gmail.com", passwordEnconder.encode("marco234")));
 
             Transaction firstTransaction = new Transaction(CREDIT, "Pay Cinema and Food", dateTime, 727.93);
             M2M.addTransaction(firstTransaction);
