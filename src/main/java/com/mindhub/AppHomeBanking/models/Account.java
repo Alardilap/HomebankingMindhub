@@ -88,14 +88,4 @@ private Set<Transaction> transactions = new HashSet<>();
         transactions.add(transaction); //A la propiedad accounts de esta clase, le vamos a agregar la cuenta que recibimos por parametro
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", number='" + number + '\'' +
-                ", creationDate=" + creationDate +
-                ", balance=" + balance +
-                ", client=" + client +
-                '}';
-    }
 }

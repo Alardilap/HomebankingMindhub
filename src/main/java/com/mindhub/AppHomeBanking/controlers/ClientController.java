@@ -64,6 +64,7 @@ public class ClientController {
         }
 
         clientRepositories.save(new Client(name, lastName, email, passwordEncoder.encode(password)));
+
         return new ResponseEntity<>("User Created", HttpStatus.CREATED);
 
     }
@@ -71,11 +72,9 @@ public class ClientController {
     @RequestMapping("/current")
     public ClientDTO getCurrentClient(Authentication authentication) {
         if (authentication != null) {
-            String email = authentication.getName(); // Utiliza getName() para obtener el email.
+            String email = authentication.getName();
             Client client = clientRepositories.findByEmail(email);
             if (client != null) {
-                // Convierte el objeto Client a un ClientDTO si es necesario.
-                // Supongo que tienes una lógica para esto.
                 ClientDTO clientDTO = new ClientDTO(client);
                 return clientDTO;
             }

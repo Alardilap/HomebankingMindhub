@@ -21,15 +21,11 @@ createApp({
                 `name=${this.inputName}&lastName=${this.inputLastName}&email=${this.inputEmail}&password=${this.inputPassword}`
             )
                 .then((response) => {
-                    // this.clearData();
-                    console.log(response)
-                    axios.post("/app/login", `email=${this.inputEmail}&password=${this.inputPassword}`)
+                    axios.post("/api/login", `email=${this.inputEmail}&password=${this.inputPassword}`)
                         .then((response) => {
-                            console.log(response)
-                            location.href = "http://localhost:8080/index.html"
+                            this.createAccount()
+                            location.href = "Web/Pages/accounts.html"
                         }).catch((err) => console.log(err))
-
-
                 })
                 .catch((err) => console.log(err));
         },
@@ -40,17 +36,42 @@ createApp({
             this.inputEmail = "";
         },
         login() {
-            axios.post("/app/login", `email=${this.loginEmail}&password=${this.loginPassword}`)
+            axios.post("/api/login", `email=${this.loginEmail}&password=${this.loginPassword}`)
                 .then((response) => {
-                    console.log(response)
-                    location.href = "http://localhost:8080/Web/Pages/accounts.html"
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        iconColor: 'grey',
+                        title: 'Login Ok ',
+                        showConfirmButton: false,
+                        timer: 900
+                    })
+                    setTimeout(() => {
+                        location.href = "/Web/Pages/accounts.html"
+                    }, 1700)
+
                 }).catch((err) => console.log(err))
         },
         signOut() {
-            axios.post("/app/logout")
+            axios.post("/api/logout")
+                .then((response) => {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        iconColor: 'grey',
+                        title: 'Logout ok',
+                        showConfirmButton: false,
+                        timer: 900
+                    })
+                    setTimeout(() => {
+                        location.href = "/index.html"
+                    }, 1700)
+                }).catch((err) => {
+                })
+        }, createAccount() {
+            axios.post("/api/clients/current/accounts")
                 .then((response) => {
                     console.log(response)
-                    location.href = "http://localhost:8080/index.html"
                 }).catch((err) => console.log(err))
         }
     },

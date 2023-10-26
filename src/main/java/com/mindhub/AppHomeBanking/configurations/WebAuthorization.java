@@ -43,13 +43,16 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index.html").permitAll()
                 .antMatchers("/web/Images").permitAll()
                 .antMatchers("/web/Pages/login.html").permitAll()
-                .antMatchers("/app/login").permitAll()
+                .antMatchers(HttpMethod.POST,"/app/login").permitAll()
                 .antMatchers("/web/**").permitAll()
-                .antMatchers("/web/pages/accounts.html").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST, "/api/clients/").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/clients/current/cards").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/web/pages/accounts.html").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.GET, "/api/accounts/**").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.GET, "/api/clients/**").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.POST, "/api/clients/").permitAll();
+                .antMatchers(HttpMethod.GET, "/api/clients/**").hasAuthority("CLIENT");
+//                .anyRequest().denyAll();
+
 
 // Esto se refiere a cualquier solicitud entrante, sin importar la ruta o el método HTTP.
 //                Esto deniega el acceso a cualquier solicitud que no haya sido autorizada previamente a través de reglas específicas.
@@ -57,9 +60,9 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
 
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .loginPage("/app/login"); //cuando un usuario intenta acceder y no esta en nuestra bd se redirigirá a esta url o pagina
+                .loginPage("/api/login"); //cuando un usuario intenta acceder y no esta en nuestra bd se redirigirá a esta url o pagina
         http.logout()
-                .logoutUrl("/app/logout").deleteCookies("JESSIONID");
+                .logoutUrl("/api/logout").deleteCookies("JESSIONID");
 
 //        http.logout().logoutUrl("/app/logout"); Esto inicia la configuración del proceso de cierre de sesión.
 //        Esto establece la URL a la que los usuarios pueden acceder para cerrar sesión. En este caso, al acceder a "/app/logout", la sesión del usuario se cerrará.

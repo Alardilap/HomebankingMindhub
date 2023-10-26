@@ -44,7 +44,6 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
     public void init(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(email -> {
             Client client = repositories.findByEmail(email);
-
 //            En esta línea, se busca al cliente en el repositorio de clientes (repositories
 //                   ) utilizando la dirección de correo electrónico (email) proporcionada durante el proceso de autenticación.
 //            Si se encuentra un cliente con ese correo electrónico, se almacena en la variable client.
@@ -55,19 +54,19 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
                             client.getPassword(),// Contraseña del usuario
                             AuthorityUtils.createAuthorityList("ADMIN"));
 //                        AuthorityUtils.createAuthorityList("CLIENT")  AuthorityUtil Es una clase proporcionada por Spring Security que contiene métodos de utilidad para trabajar con autoridades (roles) de usuario.
-                }
-                ;
+                }else{
                 return new User( // 2. Si se encuentra el cliente, se crea un objeto UserDetails con su nombre, contraseña y roles.
-
                         client.getEmail(),// Nombre del usuario
                         client.getPassword(),// Contraseña del usuario
-                        AuthorityUtils.createAuthorityList("CLIENT")
+
+                        AuthorityUtils.createAuthorityList("CLIENT"));
 //                        AuthorityUtils.createAuthorityList("CLIENT")  AuthorityUtil Es una clase proporcionada por Spring Security que contiene métodos de utilidad para trabajar con autoridades (roles) de usuario.
-                );
+                }
             }
             else {
                 throw new UsernameNotFoundException("Unknown user: " + email);
             }
         });
     }
+
 }

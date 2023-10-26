@@ -1,3 +1,9 @@
+*{
+    /* font-family: 'Bubbler One', sans-serif; */
+  
+}
+/* font-family: 'Bubbler One', sans-serif; */
+
 .navbar-nav{
     align-items: center;
     gap: 2rem;
@@ -60,4 +66,116 @@ font-size:2rem;
     background: linear-gradient(45deg, transparent 49.5%, blue 49.5%, blue 50.5%, transparent 50.5%);
     z-index: -1;
 }
+.input-line{
+    border: none;
+    border-radius: 0px;
+    border-bottom:2px solid #c4c2c2; 
+}
+.logo{
+    height: 5rem;
+    width: 5rem;
+    object-fit: contain;
+}
+/* .swal2-title{
+    font-family:cursive;
+} */
+ 
+.icono{
+    position: absolute;
+    top: 14%;
+    left: 80%;
+    font-size: 1.3rem;
+}
+.iconodos{
+    position: absolute;
+    top: 38%;
+    left: 80%;
+    font-size: 1.3rem
+}
+.iconodos:hover{
+    color: black;
+}
+.icono:hover{
+    color: black;  
+}
+.contenedor-button{
+    display: flex;
+    justify-content: end;
+}
+.logo{
+    height: 6rem;
+    width: 12rem;
+    /* object-fit: contain */
+}
+.modal-header{
+    border: none !important;
+}
+.modal-transition{
+    transition: 0.1s;
+}.a-login{
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+}    
+                              
+.button-register {
+    background-color: #ff004c !important; 
+    background-color: #11243B !important;
+    color: #fff; 
+    font-weight: 500;
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    cursor: pointer;
+    font-size: 16px;
+    width: 12rem;
+}
+.register-button:hover {
+    background-color: #0056b3; 
+}
+.login-link:hover{
+   color: red; 
+}
+.form-label{
+    color: #9c9b9bce;
+    color: #5e5c5cce;
+    font-weight: 600;
+}
+.btn-close{
+color: #11243B  !important;
+}
+input:focus {
+    outline: none !important; 
+}
+.input-with-icon {
+    position: relative !important; /* Posición relativa para que el ícono esté dentro del input */
+}
 
+.input-with-icon i {
+    position: absolute !important; /* Posición absoluta para el ícono */
+    top: 50%; /* Alinea verticalmente al centro */
+    transform: translateY(-50%); /* Alinea verticalmente al centro */
+    right: 10px; /* Ajusta el espacio a la derecha del ícono */
+    color: #888; /* Color del ícono (puedes personalizarlo) */
+}
+
+.input-with-icon input {
+    padding-right: 30px; /* Ajusta el espacio a la derecha del input para acomodar el ícono */
+}
+.login-link {
+    color: #1f518d !important; 
+   font-weight: 800;
+    text-decoration: none !important; /* Quita la línea debajo del enlace */
+
+}
+/* .input-line {
+    background-color: rgba(155, 149, 149, 0.062); 
+    box-shadow: 0 0 5px rgba(119, 118, 118, 0.027); 
+} */
+.modal-dialog {
+    width: 27rem;
+  
+}
+.tamañomodal{
+    width: 27rem;
+}

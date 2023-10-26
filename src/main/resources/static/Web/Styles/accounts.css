@@ -61,3 +61,23 @@ table {
 }
 
 }
+.logocuenta{
+    width:2rem;
+}
+.logocuenta:hover{
+ color: white;
+ transform: scale(1.1);
+ transition: transform 0.5s;
+}
+.createaccount{
+    font-size: 14px;
+    color: #c5c2c2  !important;
+    font-weight: 600;
+    cursor: pointer;
+}
+.createaccount:hover{
+    color: white !important;
+}
+.create{
+    text-decoration: none;
+}

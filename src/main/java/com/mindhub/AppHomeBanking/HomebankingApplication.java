@@ -132,13 +132,13 @@ public class HomebankingApplication {
             Autoloan.addClientLoan(clientLoanMarco2);
             clientLoanRepositories.save(clientLoanMarco2);
 
-            Card cardOne =  new Card("Melba Morel",CardType.DEBIT,CardColor.GOLD,"1324-7689-9876-5673",145,date,date.plusYears(5));
-            Card cardTwo =  new Card("Melba Morel",CardType.CREDIT,CardColor.TITANIUM,"1342-7219-9246-0973",123,date,date.plusYears(5));
+            Card cardOne =  new Card("Melba Morel",CardType.DEBIT,CardColor.GOLD,"1324-7689-9876-5673","145",date,date.plusYears(5));
+            Card cardTwo =  new Card("Melba Morel",CardType.CREDIT,CardColor.TITANIUM,"1342-7219-9246-0973","123",date,date.plusYears(5));
             List<Card> cardsMelba= Arrays.asList(cardOne,cardTwo);
             melba.addAllCards(cardsMelba);
             cardRepositories.saveAll(cardsMelba);
 
-            Card cardMarco =  new Card("Marco Miquel",CardType.CREDIT,CardColor.SILVER,"0804-1987-0804-1987",395,date,date.plusYears(5));
+            Card cardMarco =  new Card("Marco Miquel",CardType.CREDIT,CardColor.SILVER,"0804-1987-0804-1987","395",date,date.plusYears(5));
             marco.addCard(cardMarco);
             cardRepositories.save(cardMarco);
 

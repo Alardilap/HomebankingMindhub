@@ -13,10 +13,12 @@ public class Card {
 
     private Long id; //java
     private String cardHolder;//usuario
+    @Enumerated(EnumType.STRING)
     private CardType type;//usuario
+    @Enumerated(EnumType.STRING)
     private CardColor color;//usuario
     private String number;//java
-    private Integer cvv;//java
+    private String cvv;//java
     private LocalDate fromDate;//usuario
     private LocalDate thruDate;//usuario
 
@@ -25,7 +27,7 @@ public class Card {
     private Client client;
    public Card(){
    }
-    public Card( String cardHolder, CardType type, CardColor color, String number, Integer cvv, LocalDate fromDate, LocalDate thruDate) {
+    public Card( String cardHolder, CardType type, CardColor color, String number, String cvv, LocalDate fromDate, LocalDate thruDate) {
         this.cardHolder = cardHolder;
         this.type = type;
         this.color = color;
@@ -71,11 +73,11 @@ public class Card {
         this.number = number;
     }
 
-    public Integer getCvv() {
+    public String getCvv() {
         return cvv;
     }
 
-    public void setCvv(Integer cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
 

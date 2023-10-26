@@ -23,11 +23,55 @@ createApp({
                 .catch((err) => console.log(err));
         },
         signOut() {
-            axios.post("/app/logout")
+            axios.post("/api/logout")
                 .then((response) => {
-                    console.log(response)
-                    location.href = "http://localhost:8080/index.html"
+                    console.log(response.data)
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        iconColor: 'grey',
+                        title: 'logout ok',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    setTimeout(() => {
+                        location.href = "/index.html"
+                    }, 1700)
+
+
                 }).catch((err) => console.log(err))
+        },
+        createAccount() {
+            axios.post("/api/clients/current/accounts")
+                .then((response) => {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        iconColor: 'green',
+                        title: 'account created successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    setTimeout(() => {
+                        this.loadData()
+                    }, 1700)
+
+                }).catch((err) => {
+                    let errorMessage = err.response.data;
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        iconColor: 'red',
+                        text: errorMessage,
+                        showConfirmButton: false,
+                        timer: 1500,
+                        customClass: {
+                            text: 'custom-swal-text' // Definir una clase personalizada
+                        }
+                    })
+                }
+
+                )
         }
     },
 }).mount('#app');
