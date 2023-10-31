@@ -44,11 +44,9 @@ public class ClientController {
     }
 
     @Autowired
-
     private PasswordEncoder passwordEncoder;
 
     @RequestMapping(path = "/clients", method = RequestMethod.POST)
-
     public ResponseEntity<?> register(
 
             @RequestParam String name, @RequestParam String lastName,

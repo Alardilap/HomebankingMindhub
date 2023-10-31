@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,6 @@ public class AccountController {
 
     @Autowired
     private ClientRepositories clientRepositories;
-
 
 //    public AccountController(ClientRepositories clientRepositories){
 //        this.clientRepositories= clientRepositories;
@@ -55,7 +55,6 @@ public class AccountController {
                 account.setNumber(accountNumber);
                 account.setCreationDate(LocalDate.now());
                 account.setBalance(0);
-
                 client.addAccount(account);
                 accountRepositories.save(account);
                 clientRepositories.save(client);
@@ -64,6 +63,15 @@ public class AccountController {
              } else {
             return new ResponseEntity<>("It is not possible to create another account", HttpStatus.FORBIDDEN);
         }
-
 }
+   @GetMapping("/clients/current/accounts")
+        public Set<AccountDTO> getAccounts(Authentication authentication) {
+       Client client = clientRepositories.findByEmail(authentication.getName());
+       Set<AccountDTO> accountDTOS = client.getAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
+       if(client != null && accountDTOS != null) {
+           return accountDTOS;
+       }else{
+           return new HashSet<>();
+   }
+   }
 }

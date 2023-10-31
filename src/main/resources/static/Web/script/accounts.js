@@ -42,36 +42,51 @@ createApp({
                 }).catch((err) => console.log(err))
         },
         createAccount() {
-            axios.post("/api/clients/current/accounts")
-                .then((response) => {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        iconColor: 'green',
-                        title: 'account created successfully',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    setTimeout(() => {
-                        this.loadData()
-                    }, 1700)
+            Swal.fire({
+                title: 'Do you want to create an account?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Create',
+                denyButtonText: `Don't Create`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    axios.post("/api/clients/current/accounts")
+                        .then((response) => {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                iconColor: 'green',
+                                title: 'account created successfully',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(() => {
+                                this.loadData()
+                            }, 1700)
 
-                }).catch((err) => {
-                    let errorMessage = err.response.data;
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'error',
-                        iconColor: 'red',
-                        text: errorMessage,
-                        showConfirmButton: false,
-                        timer: 1500,
-                        customClass: {
-                            text: 'custom-swal-text' // Definir una clase personalizada
+                        }).catch((err) => {
+                            let errorMessage = err.response.data;
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                iconColor: 'red',
+                                text: errorMessage,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                customClass: {
+                                    text: 'custom-swal-text' // Definir una clase personalizada
+                                }
+                            })
                         }
-                    })
-                }
 
-                )
+                        )
+                    Swal.fire('Created!', '', 'success')
+                } else if (result.isDenied) {
+                    Swal.fire('Account not created', '', 'info')
+                }
+            })
+
         }
     },
 }).mount('#app');

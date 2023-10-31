@@ -20,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 // el módulo de spring utilice ese objeto ya creado.
 
 public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
-
 //    La clase WebAuthentication se extiende de GlobalAuthenticationConfigurerAdapter
 //    para poder sobrescribir su método init. En este método se debe cambiar el servicio
 //    de detalles de usuario por uno nuevo que implemente la búsqueda de los detalles del
@@ -31,13 +30,7 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
 //    para Spring lo importante es que extienda de GlobalAuthenticationConfigurerAdapter que es el objeto
 //    que utiliza el Spring Security para saber cómo buscará los detalles del usuario
     @Autowired
-    ClientRepositories repositories;
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
+    private ClientRepositories repositories;
 
 @Override //indico que voy a sobre escribir este metodo init que viene de la clase
 // GlobalAuthenticationConfigurerAdapter tambien me ayuda a sobreescribirlo bien, evitar errores.
@@ -48,7 +41,7 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
 //                   ) utilizando la dirección de correo electrónico (email) proporcionada durante el proceso de autenticación.
 //            Si se encuentra un cliente con ese correo electrónico, se almacena en la variable client.
             if (client != null) {
-                if (client.getEmail().equals("AdminAgileBank@gmail.com")) {
+                if(client.getEmail().equals("AdminAgileBank@gmail.com")) {
                     return new User(  // 2. Si se encuentra el cliente, se crea un objeto UserDetails con su nombre, contraseña y roles.
                             client.getEmail(),// Nombre del usuario
                             client.getPassword(),// Contraseña del usuario
@@ -58,7 +51,6 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
                 return new User( // 2. Si se encuentra el cliente, se crea un objeto UserDetails con su nombre, contraseña y roles.
                         client.getEmail(),// Nombre del usuario
                         client.getPassword(),// Contraseña del usuario
-
                         AuthorityUtils.createAuthorityList("CLIENT"));
 //                        AuthorityUtils.createAuthorityList("CLIENT")  AuthorityUtil Es una clase proporcionada por Spring Security que contiene métodos de utilidad para trabajar con autoridades (roles) de usuario.
                 }
@@ -68,5 +60,13 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
             }
         });
     }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
 
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+//    el @Bean que defines para PasswordEncoder es fundamental para garantizar que las contraseñas se almacenen
+//    y comparen de manera segura durante el proceso de autenticación.
+//    Spring Security utiliza esta configuración de PasswordEncoder en segundo plano para garantizar
+//    que las contraseñas se traten adecuadamente.
 }

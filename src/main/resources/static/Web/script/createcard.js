@@ -12,6 +12,7 @@ createApp({
     },
     methods: {
         createcard() {
+
             axios.post("/api/clients/current/cards", `color=${this.selectedcolor}&type=${this.selectedtype}`)
 
                 .then((response) => {
@@ -50,3 +51,5 @@ createApp({
 
     },
 }).mount('#app');
+
+
