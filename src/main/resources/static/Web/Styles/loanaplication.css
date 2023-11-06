@@ -128,7 +128,9 @@ h6{
     font-weight: 400;  
 }
 .title-la{
-margin-top: 1rem !important;
+margin-top: 2rem !important;
+color: #074591;
+font-weight: 600;
 }
 
 /* .formulario{
