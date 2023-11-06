@@ -41,11 +41,11 @@ public class HomebankingApplication {
             Client admin = new Client("Admin" , "Admin", "AdminAgileBank@gmail.com", passwordEnconder.encode("administrador") );
             clientRepositories.save(admin);
 
-            Account M1M = new Account("12MM", date, 2344950.5494);
+            Account M1M = new Account("VIN-65478324", date, 2344950.5494);
             marco.addAccount(M1M);
             accountRepositories.save(M1M);
 
-            Account M2M = new Account("13MM", date, 4573383.847);
+            Account M2M = new Account("VIN-32476890", date, 4573383.847);
             marco.addAccount(M2M);
             accountRepositories.save(M2M);
 
@@ -58,11 +58,11 @@ public class HomebankingApplication {
 
 
 
-            Account melbaAccountOne = new Account("VIN001", date, 5000.00);
+            Account melbaAccountOne = new Account("VIN-87423907", date, 5000.00);
             melba.addAccount(melbaAccountOne);
             accountRepositories.save(melbaAccountOne);
 
-            Account melbaAccountTwo = new Account("VIN002", date.plusDays(1), 7500.00);
+            Account melbaAccountTwo = new Account("VIN-85342890", date.plusDays(1), 7500.00);
             melba.addAccount(melbaAccountTwo);
             accountRepositories.save(melbaAccountTwo);
 
@@ -99,12 +99,12 @@ public class HomebankingApplication {
             transactionRepositories.save(Fifth);
 
             List<Integer> paymentsMortgage = List.of(12, 24, 36, 48, 60);
-            Loan Mortgageloan = new Loan("mortgage", 5000000, paymentsMortgage);
+            Loan Mortgageloan = new Loan("Mortgage", 5000000, paymentsMortgage);
             loanRepositories.save(Mortgageloan);
 
 
             List<Integer> paymentsStaff = List.of(6, 12, 24);
-            Loan Staffloan = new Loan("staff", 1000000, paymentsStaff);
+            Loan Staffloan = new Loan("Staff", 1000000, paymentsStaff);
             loanRepositories.save(Staffloan);
 
 

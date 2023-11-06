@@ -2,13 +2,7 @@
 /* *{
     border: 1px red solid;
 } */
-.contenedor-form{
-    background-color: rgb(241 241 241 / 88%);
-   width: 17rem;
-   height: 35rem;
-   margin-top: 2rem;
 
-}
 input{
     width: 12rem;
     height: 2rem;

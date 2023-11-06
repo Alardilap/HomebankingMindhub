@@ -4,7 +4,9 @@
 nav{
     height: 5rem !important;
 }
-
+a{
+text-decoration: none;
+}
 .titulo{
     font-size: 1rem;
     color: white;
@@ -25,8 +27,11 @@ nav{
 button{
     border-radius: 0 !important;
 }
-.botonsalir:hover{
+/* .botonsalir:hover{
     background-color: rgba(27, 109, 109, 0.795);
+} */
+.botonsalir:hover{
+    background-color: rgba(109, 27, 27, 0.795) !important;
 }
 
 .titulointro{

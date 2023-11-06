@@ -29,11 +29,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
 
     @Override // Estoy sobreescribiendo el metodo configure que viene de WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception {
-//
-////    Aquí, se configuran las reglas de autorización. Esto significa que estás definiendo qué usuarios
-////    pueden acceder a diferentes partes de tu aplicación.
-//                .antMatchers("/api/clients/").hasAuthority("CLIENT")
-//                .antMatchers("/api/accounts/").hasAuthority("CLIENT");
+
         http.authorizeRequests()
                 .antMatchers("/index.html").permitAll()
                 .antMatchers("/web/Images").permitAll()
@@ -44,12 +40,12 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/web/pages/accounts.html","/web/pages/transfer.html").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.GET, "/api/accounts/**").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.POST,"/api/transactions").hasAuthority("CLIENT")
+//                .antMatchers(HttpMethod.GET, "/api/accounts/**").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.GET, "/api/clients/current/accounts").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/transactions").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/clients/**").hasAuthority("CLIENT");
 //                .anyRequest().denyAll();
-// Esto se refiere a cualquier solicitud entrante, sin importar la ruta o el método HTTP.
-//                Esto deniega el acceso a cualquier solicitud que no haya sido autorizada previamente a través de reglas específicas.
+
 
         http.formLogin()
                 .usernameParameter("email") //alardila@pgmail.com

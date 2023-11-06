@@ -52,6 +52,7 @@ p{
 .descripcion{
     color: white;
 font-size:2rem;
+margin-bottom: 4rem;
 }
 .carousel-inner {
     position: relative;
@@ -70,6 +71,7 @@ font-size:2rem;
     border: none;
     border-radius: 0px;
     border-bottom:2px solid #c4c2c2; 
+    font-size: large;
 }
 .logo{
     height: 5rem;
@@ -88,7 +90,7 @@ font-size:2rem;
 }
 .iconodos{
     position: absolute;
-    top: 38%;
+    top: 36%;
     left: 80%;
     font-size: 1.3rem
 }
@@ -179,3 +181,26 @@ input:focus {
 .tamañomodal{
     width: 27rem;
 }
+.text-intro{
+color: white !important;
+font-weight: 400;
+margin-bottom: 3rem;
+}
+.Terms{
+    color: white !important;
+    font-weight: 400;
+    margin-bottom: 3rem; 
+}
+.boton-credito{
+    color: white;
+    background-color: rgb(8, 73, 73);
+border: none;
+width: 7rem;
+height: 2.5rem;
+font-weight: 600;
+transition: background-color 0.3s, color 0.3s;
+    &:hover {
+      background-color:rgb(20 124 124)
+    }
+}
+

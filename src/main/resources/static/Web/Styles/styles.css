@@ -124,5 +124,127 @@ height: 5rem;
 
 /* color: #f8cd51 */
 
+.createcard{
+    width: 15rem;
+}
+nav{
+    height: 5rem !important;
+}
+a{
+text-decoration: none;
+}
+.titulo{
+    font-size: 1rem;
+    color: white;
+}
+.iconosalir{
+    color: white;
+}
+.iconosalir:hover{
+    color: white;
+}
+.botonsalirr{
+    background-color: rgb(8, 73, 73);
+    border: none;     
+    width: 4rem;
+    height: 5rem;
+    border-radius: 0 !important;
+}
+button{
+    border-radius: 0 !important;
+}
+/* .botonsalir:hover{
+    background-color: rgba(27, 109, 109, 0.795);
+} */
+.botonsalir:hover{
+    background-color: rgba(109, 27, 27, 0.795) !important;
+}
 
+.titulointro{
+    color: black;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.parrafointro{
+    font-size: 15px;
+    font-weight: light;
+    color: rgb(124, 124, 123);
+}
+.parrafointro:hover{
+
+    color: rgb(124, 124, 123);
+}
+input{
+    color: black;
+    font-size: 10px;
+    font-weight: 500;
+}
+.botonsend{
+    background-color: rgb(8, 73, 73);
+    border: none;     
+    width: 4rem;
+    height: 2.5rem;
+    border-radius: 0 !important;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.botonsend:hover{
+    background-color: rgba(27, 109, 109, 0.795);
+}
+.formcard{
+    padding: 1rem;
+    height: 15rem;
+    width: 17rem;
+    background-color: rgba(45, 165, 165, 0.377);
+}
+.contenedorcolores{
+    /* background-color: #11243B; */
+    height: 2rem;
+}
+label {
+    margin-right: 10px; /* Espacio a la derecha de cada etiqueta */
+    color: white;
+    font-weight: 600;
+  }
+  @media (min-width: 564px) {
+    .formcard{
+  
+        height: 15rem;
+        width: 23rem;
+    
+    }
+    .createcard{
+        width: 25rem;
+    }
+    .contenedor-nav{
+        justify-content: space-between !important;
+        align-items: center;
+    }
+    }
+    @media (min-width: 990px) {
+        .formcard{
+            height: 17rem;
+            width: 33rem;
+        
+        }
+        .createcard{
+            width: 35rem;
+        }
+        .contenedor-nav{
+            justify-content: space-between !important;
+            align-items: center;
+        }
+        .contenedorprincipal{
+            display: flex !important;
+            flex-direction: row !important;
+            gap: 5rem !important;
+            align-items: flex-start !important;
+            margin-top: 3rem !important;
+        }
+        .contenedor-form{
+
+          gap: 2rem;
+        }
+        }
 
