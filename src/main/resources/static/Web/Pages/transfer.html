@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../Styles/styles.css">
     <link rel="stylesheet" href="../Styles/tranfers.css">
     <link rel="shortcut icon" href="../Images/Logobanco.png" type="image/x-icon" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="../Images/logo.jpeg">
 </head>
@@ -58,65 +59,76 @@
         </nav>
     </header>
 
-    <main id="app" class="d-flex flex-column justify-content-center align-items-center pt-5 contenedor-main ">
+    <main id="app">
+        <div class="div-textointro">
+            <h2 class="loanstexto"> Transactions <i class="fas fa-angle-right thick-arrow rotate-arrow"></i><span
+                    class="spanBA"> Bank
+                    Agile</span>
+            </h2>
+        </div>
 
-        <img class="imagetransfer m-5" src="../Images/tranferpersonas.avif" alt="imagentransferencua">
+        <div class="d-flex flex-column justify-content-center align-items-center pt-5 contenedor-main ">
 
-        <div class="contenedor-form">
 
-            <form class="d-flex flex-column shadow p-3 mb-5 bg-white rounded">
-                <div class="d-flex gap-2 contenedor-radios mt-3">
-                    <div>
-                        <h6>Destination Type</h6>
+            <img class="imagetransfer m-5" src="../Images/tranferpersonas.avif" alt="imagentransferencua">
+
+            <div class="contenedor-form">
+
+                <form class="d-flex flex-column shadow p-3 mb-5 bg-white rounded">
+                    <div class="d-flex gap-2 contenedor-radios mt-3">
+                        <div>
+                            <h6>Destination Type</h6>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="transferdestination" value="Own" v-model="transferType" id="Own"
+                                @change="selectAccount" class="form-check-input">
+                            <label for="Own" class="form-check-label">Own</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="transferdestination" value="Others" v-model="transferType"
+                                id="Others" @change="selectAccount" class="form-check-input">
+                            <label for="Others" class="form-check-label">Others</label>
+                        </div>
                     </div>
+                    <div v-if="transferType != '' "
+                        class="d-flex flex-column align-items-start m-4 gap-2 justify-content-center">
 
-                    <div class="form-check form-check-inline">
-                        <input type="radio" name="transferdestination" value="Own" v-model="transferType" id="Own"
-                            @change="selectAccount" class="form-check-input">
-                        <label for="Own" class="form-check-label">Own</label>
+                        <label for="originF" class="text-start">From <span class="text-danger">*</span></label>
+                        <select id="originF" name="originF" v-model="selectedFrom" class="text-start">
+                            <option v-for="account in accountsOwn" :value="account">{{account}}</option>
+                        </select>
+
+                        <label v-show="transferType === 'Own'" for="originT" class="text-start">To <span
+                                class="text-danger">*</span></label>
+                        <select id="originT" name="originT" v-show="transferType === 'Own'" class="text-start"
+                            v-model="accountDestination">
+                            <option v-for="account in accountsOwn" :value="account" :key="account"
+                                :disabled="account == selectedFrom  ">{{account}}</option>
+                        </select>
+
+                        <label v-show="transferType === 'Others'" for="accountothers" class="text-start">Account
+                            Destination<span class="text-danger">*</span></label>
+                        <input v-show="transferType === 'Others'" class="text-start" type="text" id="accountothers"
+                            name="accountothers" v-model="accountDestination">
+
+                        <label for="amount" class="text-start">Amount <span class="text-danger">*</span></label>
+                        <input type="text" id="amount" name="amount" v-model="amount">
+
+                        <label for="description" class="text-start">Description <span
+                                class="text-danger">*</span></label>
+                        <input class="mb-2 text-start" type="text" id="description" name="description"
+                            v-model="description">
+                        <div class="button d-flex justify-content-center w-100">
+                            <button class="buttonsend" @click.prevent="newTransaction()">Transfer</button>
+                        </div>
                     </div>
-
-                    <div class="form-check form-check-inline">
-                        <input type="radio" name="transferdestination" value="Others" v-model="transferType" id="Others"
-                            @change="selectAccount" class="form-check-input">
-                        <label for="Others" class="form-check-label">Others</label>
+                    <div v-else>
+                        <h2>Select an option</h2>
                     </div>
-                </div>
-                <div v-if="transferType != '' "
-                    class="d-flex flex-column align-items-start m-4 gap-2 justify-content-center">
-
-                    <label for="originF" class="text-start">From <span class="text-danger">*</span></label>
-                    <select id="originF" name="originF" v-model="selectedFrom" class="text-start">
-                        <option v-for="account in accountsOwn" :value="account">{{account}}</option>
-                    </select>
-
-                    <label v-show="transferType === 'Own'" for="originT" class="text-start">To <span
-                            class="text-danger">*</span></label>
-                    <select id="originT" name="originT" v-show="transferType === 'Own'" class="text-start"
-                        v-model="accountDestination">
-                        <option v-for="account in accountsOwn" :value="account" :key="account"
-                            :disabled="account == selectedFrom  ">{{account}}</option>
-                    </select>
-
-                    <label v-show="transferType === 'Others'" for="accountothers" class="text-start">Account
-                        Destination<span class="text-danger">*</span></label>
-                    <input v-show="transferType === 'Others'" class="text-start" type="text" id="accountothers"
-                        name="accountothers" v-model="accountDestination">
-
-                    <label for="amount" class="text-start">Amount <span class="text-danger">*</span></label>
-                    <input type="text" id="amount" name="amount" v-model="amount">
-
-                    <label for="description" class="text-start">Description <span class="text-danger">*</span></label>
-                    <input class="mb-2 text-start" type="text" id="description" name="description"
-                        v-model="description">
-                    <div class="button d-flex justify-content-center w-100">
-                        <button class="buttonsend" @click.prevent="newTransaction()">Transfer</button>
-                    </div>
-                </div>
-                <div v-else>
-                    <h2>Select an option</h2>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </main>
     <footer>

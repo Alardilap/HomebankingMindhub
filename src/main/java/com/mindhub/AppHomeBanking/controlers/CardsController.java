@@ -6,6 +6,9 @@ import com.mindhub.AppHomeBanking.models.*;
 
 import com.mindhub.AppHomeBanking.repositories.CardRepositories;
 import com.mindhub.AppHomeBanking.repositories.ClientRepositories;
+import com.mindhub.AppHomeBanking.service.AccountService;
+import com.mindhub.AppHomeBanking.service.CardService;
+import com.mindhub.AppHomeBanking.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +24,18 @@ import java.util.stream.Collectors;
 @RequestMapping("api")
 public class CardsController {
 
+//@Autowired
+//private CardRepositories cardRepositories;
+
+ @Autowired
+ private CardService cardService;
+
+@Autowired
+private ClientService clientService;
+//@Autowired
+//private ClientRepositories clientRepositories;
+
     LocalDate date = LocalDate.now();
-
-@Autowired
-private CardRepositories cardRepositories;
-
-@Autowired
-private ClientRepositories clientRepositories;
-
-
 
     public int getRandomNumber(int min, int max) {return (int) ((Math.random() * (max - min)) + min);}
 
@@ -42,7 +48,7 @@ private ClientRepositories clientRepositories;
                 if ((i + 1) % 4 == 0 && i != 15) cardNumber.append("-");
             }
         }
-        while (cardRepositories.existsByNumber(cardNumber.toString()));
+        while (cardService.existsByNumber(cardNumber.toString()));
         return cardNumber.toString();
     }
 //    String string = "hola";
@@ -61,7 +67,7 @@ private ClientRepositories clientRepositories;
     public ResponseEntity<?> addCard(@RequestParam CardColor color,  @RequestParam CardType type, Authentication authentication) {
 
         String email = authentication.getName();
-        Client client = clientRepositories.findByEmail(email);
+        Client client = clientService.findClientByEmail(email);
 
         if(client.getCards().stream().filter(card-> card.getType().equals(type)).collect(Collectors.toSet()).size() ==3 ){
 
@@ -79,13 +85,13 @@ private ClientRepositories clientRepositories;
             card.setThruDate(date.plusYears(5));
 
            client.addCard(card);
-           cardRepositories.save(card);
+          cardService.saveCard(card);
 
             return new ResponseEntity<>("Card Created", HttpStatus.CREATED);
     }
     @GetMapping("/clients/current/cards")
     public Set<CardDTO> getCards(Authentication authentication) {
-        Client client = clientRepositories.findByEmail(authentication.getName());
+        Client client = clientService.findClientByEmail(authentication.getName());
         Set<CardDTO> cardsDTOS = client.getCards().stream().map(card -> new CardDTO(card)).collect(Collectors.toSet());
         if(client != null && cardsDTOS != null) {
             return cardsDTOS;

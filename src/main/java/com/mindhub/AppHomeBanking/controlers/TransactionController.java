@@ -4,6 +4,9 @@ import com.mindhub.AppHomeBanking.models.*;
 import com.mindhub.AppHomeBanking.repositories.AccountRepositories;
 import com.mindhub.AppHomeBanking.repositories.ClientRepositories;
 import com.mindhub.AppHomeBanking.repositories.TransactionRepositories;
+import com.mindhub.AppHomeBanking.service.AccountService;
+import com.mindhub.AppHomeBanking.service.ClientService;
+import com.mindhub.AppHomeBanking.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +27,23 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class TransactionController {
 
-    @Autowired
-    private ClientRepositories clientRepositories;
+//    @Autowired
+//    private ClientRepositories clientRepositories;
+
+    //    @Autowired
+//    private TransactionRepositories transactionRepositories;
+
+//    @Autowired
+//    private AccountRepositories accountRepositories;
 
     @Autowired
-    private AccountRepositories accountRepositories;
+    private AccountService accountService;
 
     @Autowired
-    private TransactionRepositories transactionRepositories;
+    private ClientService clientService;
+
+    @Autowired
+    private TransactionService transactionService;
 
 
     @Transactional
@@ -53,8 +65,10 @@ public class TransactionController {
             return new ResponseEntity<>("Please enter a valid account number", HttpStatus.FORBIDDEN);
         }
 
-        Account accountOrigen = accountRepositories.findByNumber(originnumber);
-        Account accountDestino = accountRepositories.findByNumber(destinationnumber);
+//        Account accountOrigen = accountRepositories.findByNumber(originnumber);
+        Account accountOrigen = accountService.findAccountNumber(originnumber);
+//        Account accountDestino = accountRepositories.findByNumber(destinationnumber);
+        Account accountDestino = accountService.findAccountNumber(destinationnumber);
 
         if (accountDestino == null) {
             return new ResponseEntity<>("Account not found, please enter a valid account", HttpStatus.FORBIDDEN);
@@ -64,7 +78,8 @@ public class TransactionController {
         }
 
         String nameClient = authentication.getName();
-        Client client = clientRepositories.findByEmail(nameClient);
+//        Client client = clientRepositories.findByEmail(nameClient);
+        Client client = clientService.findClientByEmail(nameClient);
 
         if (client == null) {
             return new ResponseEntity<>("this request is not possible", HttpStatus.FORBIDDEN);
@@ -91,10 +106,10 @@ public class TransactionController {
         accountDestino.addTransaction(credit);
         accountOrigen.setBalance(accountOrigen.getBalance()-amount);
         accountDestino.setBalance(accountDestino.getBalance()+amount);
-        transactionRepositories.save(debit);
-        transactionRepositories.save(credit);
-        accountRepositories.save(accountOrigen);
-        accountRepositories.save(accountDestino);
+        transactionService.saveTransaction(debit);
+        transactionService.saveTransaction(credit);
+        accountService.accountSave(accountOrigen);
+        accountService.accountSave(accountDestino);
 
         return new ResponseEntity<>("Transaction ok", HttpStatus.OK);
     }

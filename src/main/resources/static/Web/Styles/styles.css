@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* border: 1px solid red; */
 }
 
 .modal-background {
@@ -20,6 +21,8 @@
 }
 header{
     background-color: #11243B;
+    /* position: fixed; */
+
 }
 .logoHeader{
     height: 4rem;
@@ -46,7 +49,7 @@ footer{
     font-weight: 800;
     cursor: pointer;
 }
-p:hover{
+.imagenesneed:hover{
         color: #1c314b;
 }
 i:hover{
@@ -74,7 +77,9 @@ padding-bottom: 3rem;
     justify-content: space-between;
     padding-right: 2rem;
     align-items: start !important;
-margin: 2rem 0rem;
+/* margin: 2rem 0rem; */
+padding-top: 2rem;
+padding-bottom: 2rem;
 }
 .logoHeader{
 height: 5rem;
@@ -247,4 +252,3 @@ label {
           gap: 2rem;
         }
         }
-

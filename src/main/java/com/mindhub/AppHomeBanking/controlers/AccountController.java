@@ -5,6 +5,8 @@ import com.mindhub.AppHomeBanking.models.Account;
 import com.mindhub.AppHomeBanking.models.Client;
 import com.mindhub.AppHomeBanking.repositories.AccountRepositories;
 import com.mindhub.AppHomeBanking.repositories.ClientRepositories;
+import com.mindhub.AppHomeBanking.service.AccountService;
+import com.mindhub.AppHomeBanking.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,22 +22,24 @@ import java.util.stream.Collectors;
 public class AccountController {
 
     @Autowired //Para crear una instancia de una clase, poder usar mi repositorio
-    private AccountRepositories accountRepositories;
+    private AccountService accountService;
 
+//    @Autowired
+//    private ClientRepositories clientRepositories;
     @Autowired
-    private ClientRepositories clientRepositories;
+    private ClientService clientService;
 
 //    public AccountController(ClientRepositories clientRepositories){
 //        this.clientRepositories= clientRepositories;
 //    }
     @GetMapping("/accounts") //indico que tipo de peticion manejara este servlet y la ruta para el mismo
     public Set<AccountDTO> getAccounts (){
-    return accountRepositories.findAll().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
+    return accountService.getAllAccountsDTO();
     }
 
     @GetMapping("/accounts/{id}")
     public AccountDTO getAccount (@PathVariable Long id){//Esta anotación se usa para extraer valores de variables de ruta
-    return accountRepositories.findById(id).map(account -> new AccountDTO(account)).orElse(null);
+    return accountService.findAccountById(id);
     }
     public String getRandomNumber() {
         int randomNumber = (int) ((Math.random() * 90000000) + 10000000);
@@ -45,7 +49,8 @@ public class AccountController {
     @RequestMapping(path = "/clients/current/accounts", method = RequestMethod.POST)
     public ResponseEntity<?> addAccount(Authentication authentication) {
 
-        Client client = clientRepositories.findByEmail(authentication.getName());
+//        Client client = clientRepositories.findByEmail(authentication.getName());
+        Client client= clientService.findClientAuthentiByEmail(authentication.getName());
         System.out.println(client);
         if (client != null && client.getAccounts().size() < 3 ) {
 
@@ -56,8 +61,8 @@ public class AccountController {
                 account.setCreationDate(LocalDate.now());
                 account.setBalance(0);
                 client.addAccount(account);
-                accountRepositories.save(account);
-                clientRepositories.save(client);
+                accountService.accountSave(account);
+                clientService.saveClient(client);
 
                 return new ResponseEntity<>("Account Created", HttpStatus.CREATED);
              } else {
@@ -66,7 +71,8 @@ public class AccountController {
 }
    @GetMapping("/clients/current/accounts")
         public Set<AccountDTO> getAccounts(Authentication authentication) {
-       Client client = clientRepositories.findByEmail(authentication.getName());
+//       Client client = clientRepositories.findByEmail(authentication.getName());
+       Client client= clientService.findClientAuthentiByEmail(authentication.getName());
        Set<AccountDTO> accountDTOS = client.getAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
        if(client != null && accountDTOS != null) {
            return accountDTOS;

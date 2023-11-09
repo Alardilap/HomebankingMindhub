@@ -30,95 +30,103 @@
             </div>
         </nav>
     </header>
-    <main class="d-flex justify-content-center align-items-center flex-column main-la">
-        <div class="d-flex flex-column gap-3 align-items-center mt-4 contenedor-la">
-            <div class="textoloaninterest">
-                <h4>Interest rate %</h4>
-                <p class="p-0">
-                    <i class="bi bi-exclamation-lg" style="font-size: 2rem; color:#9C6C01"></i>
-                    All our loans have an interest rate of <span class="text-danger">20%.</span>
-                    Which will be reflected at the time of requesting the credit, showing the value to be paid for each
-                    installment.
-                </p>
-            </div>
-            <div class="textoloan">
-                <p class="p-0">
-                    <i class="bi bi-exclamation-lg" style="font-size: 2rem; color:rgb(15 161 249 / 36%);"></i>
-                    We have different credit options for you
-                    and a maximum credit amount for each one
-                </p>
-                <ul>
-                    <li>°Automotive</li>
-                    <li> °Staff</li>
-                    <li>°Mortgage</li>
-                </ul>
-            </div>
+    <main>
+        <div class="div-textointro">
+            <h2 class="loanstexto"> Loans <i class="fas fa-angle-right thick-arrow rotate-arrow"></i><span
+                    class="spanBA"> Bank
+                    Agile</span> </h2>
         </div>
-
-
-        <form class="d-flex flex-column align-items-center justify-content-center formulario mt-4 m-2 mb-4">
-
-            <h5 class="p-1 text-center m-1 title-la">Welcome, let's start with your request</h5>
-            <span class="text-center m-1 mb-2" style="color: rgb(255, 0, 0);">{{advertencia}}</span>
-            {{metodo}}
-            {{typeloan}}
-            {{capturarValorCuota}}
-            {{maxAmount}}
-
-            <div class="d-flex flex-column align-items-start w-75 contendores">
-                <h6 class="textform">Select Loan <span class="text-danger">*</span></h6>
-                <select @click="loans()" v-model="TypeLoan" class="mb-3 w-100">
-                    <option v-for="loan of loansAvailable" :value="loan">{{loan.name}}</option>
-                </select>
+        <div class="d-flex flex-column align-items-center flex-column main-la">
+            <div class="d-flex flex-column gap-3 align-items-center mt-4 contenedor-la">
+                <div class="textoloaninterest">
+                    <h4>Interest rate %</h4>
+                    <p class="p-0">
+                        <i class="bi bi-exclamation-lg" style="font-size: 2rem; color:#9C6C01"></i>
+                        All our loans have an interest rate of <span class="text-danger">20%.</span>
+                        Which will be reflected at the time of requesting the credit, showing the value to be paid for
+                        each
+                        installment.
+                    </p>
+                </div>
+                <div class="textoloan">
+                    <p class="p-0">
+                        <i class="bi bi-exclamation-lg" style="font-size: 2rem; color:rgb(15 161 249 / 36%);"></i>
+                        We have different credit options for you
+                        and a maximum credit amount for each one
+                    </p>
+                    <ul>
+                        <li>°Automotive</li>
+                        <li> °Staff</li>
+                        <li>°Mortgage</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="d-flex flex-column align-items-start w-75 contendores">
-                <label class="labelamount" for="amount">Amount <span class="text-danger">*</span></label>
-                <input type="text" id="amount" name="amount" v-model="amount" class="mb-3 inputamount w-100">
-            </div>
 
-            <div class="d-flex flex-column align-items-start  w-75 contendores ">
-                <h6 class="textform">Source account <span class="text-danger">*</span></h6>
-                <select @click="accounts()" v-model="accountTransfer" class="mb-3 w-100">
-                    <option v-for="account in accountsOwn" :value="account">{{account}}</option>
-                </select>
-            </div>
+            <form class="d-flex flex-column align-items-center justify-content-center formulario mt-4 m-2 mb-4">
 
-            <div class="d-flex flex-column align-items-start w-75 contendores ">
-                <h6 class="textform">Payments <span class="text-danger">*</span></h6>
-                <select v-model="payments" class="mb-3  w-100">
-                    <template v-for="cuota of loansAvailableCoutas">
-                        <option :value="cuota">{{cuota}}</option>
-                    </template>
-                </select>
-            </div>
-            <span>{{calculateQuota}}</span>
-            <button class="botonsend mb-1" @click.prevent="newloan()">Apply</button>
-        </form>
+                <h5 class="p-1 text-center m-1 title-la">Welcome, let's start with your request</h5>
+                <span class="text-center m-1 mb-2" style="color: rgb(255, 0, 0);">{{advertencia}}</span>
+                {{metodo}}
+                {{typeloan}}
+                {{capturarValorCuota}}
+                {{maxAmount}}
+
+                <div class="d-flex flex-column align-items-start w-75 contendores">
+                    <h6 class="textform">Select Loan <span class="text-danger">*</span></h6>
+                    <select @click="loans()" v-model="TypeLoan" class="mb-3 w-100">
+                        <option v-for="loan of loansAvailable" :value="loan">{{loan.name}}</option>
+                    </select>
+                </div>
+
+                <div class="d-flex flex-column align-items-start w-75 contendores">
+                    <label class="labelamount" for="amount">Amount <span class="text-danger">*</span></label>
+                    <input type="text" id="amount" name="amount" v-model="amount" class="mb-3 inputamount w-100">
+                </div>
+
+                <div class="d-flex flex-column align-items-start  w-75 contendores ">
+                    <h6 class="textform">Source account <span class="text-danger">*</span></h6>
+                    <select @click="accounts()" v-model="accountTransfer" class="mb-3 w-100">
+                        <option v-for="account in accountsOwn" :value="account">{{account}}</option>
+                    </select>
+                </div>
+
+                <div class="d-flex flex-column align-items-start w-75 contendores ">
+                    <h6 class="textform">Payments <span class="text-danger">*</span></h6>
+                    <select v-model="payments" class="mb-3  w-100">
+                        <template v-for="cuota of loansAvailableCoutas">
+                            <option :value="cuota">{{cuota}}</option>
+                        </template>
+                    </select>
+                </div>
+                <span>{{calculateQuota}}</span>
+                <button class="botonsend mb-1" @click.prevent="newloan()">Apply</button>
+            </form>
 
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-            data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="d-flex">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="d-flex flex-column align-items-center justify-content-center m-4">
-                        <div class="modal-body d-flex flex-column align-items-center justify-content-center">
-                            <img class="imagenmodal" src="../Images/advertencia.jpg" alt="logoadvertencia">
-                            <h5 class="mb-4">Are you sure you want to exit the process?</h5>
-                            <h6 class="textomodal mb-4">The data entered will be lost</h6>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="d-flex">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="d-flex flex-column gap-3">
-                            <a href="./accounts.html">
-                                <button type="button" class="botonClose" data-bs-dismiss="modal">Exit the
-                                    process</button>
-                            </a>
-                            <a href="./loanapplication.html" class="textContinue">
-                                Continue the process
-                            </a>
+                        <div class="d-flex flex-column align-items-center justify-content-center m-4">
+                            <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+                                <img class="imagenmodal" src="../Images/advertencia.jpg" alt="logoadvertencia">
+                                <h5 class="mb-4">Are you sure you want to exit the process?</h5>
+                                <h6 class="textomodal mb-4">The data entered will be lost</h6>
+                            </div>
+                            <div class="d-flex flex-column gap-3">
+                                <a href="./accounts.html">
+                                    <button type="button" class="botonClose" data-bs-dismiss="modal">Exit the
+                                        process</button>
+                                </a>
+                                <a href="./loanapplication.html" class="textContinue">
+                                    Continue the process
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
