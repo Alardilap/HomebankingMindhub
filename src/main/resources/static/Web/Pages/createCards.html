@@ -16,14 +16,17 @@
 <body>
     <header>
         <nav>
-            <div class="d-flex justify-content-center align-items-center gap-5 contenedor-nav ">
+            <div class="d-flex justify-content-center align-items-center gap-3 contenedor-nav ">
                 <a href=""><img class="logoHeader" src="../Images/logo.jpeg" alt="logo"></a>
                 <h3 class="titulo m-0">Request your card</h3>
                 <a href="./cards.html">
-                    <button class="botonsalirr">
+                    <!-- <button class="botonsalirr">
                         <i class="bi bi-x-lg iconosalir"></i>
-                    </button>
+                    </button> -->
                 </a>
+                <button class="botonsalirr" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="bi bi-x-lg iconosalir"></i>
+                </button>
             </div>
         </nav>
     </header>
@@ -37,7 +40,7 @@
         <div class="d-flex flex-column align-items-center justify-content-center gap-3 p-4 contenedorprincipal"
             style="margin: 0; padding: 0;">
             <div>
-                <img class=" createcard" src="../Images/create-card.jpg" alt="createcard">
+                <img class="createcard" src="../Images/create-card.jpg" alt="createcard">
             </div>
             <div class=" d-flex align-items-center justify-content-center flex-column contenedor-form">
                 <div class="d-flex flex-column align-items-start">
@@ -78,7 +81,33 @@
                 </form>
             </div>
         </div>
-
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+            data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="d-flex">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="d-flex flex-column align-items-center justify-content-center m-4">
+                        <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+                            <img class="imagenmodal" src="../Images/advertencia.jpg" alt="logoadvertencia">
+                            <h5 class="mb-4">Are you sure you want to exit the process?</h5>
+                            <h6 class="textomodal mb-4">The data entered will be lost</h6>
+                        </div>
+                        <div class="d-flex flex-column gap-3">
+                            <a href="./cards.html">
+                                <button type="button" class="botonClose" data-bs-dismiss="modal">Exit the
+                                    process</button>
+                            </a>
+                            <a href="./createCards.html" class="textContinue">
+                                Continue the process
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer>
         <div class="d-flex flex-column align-items-center pt-3 pb-3 m-0 div-container">

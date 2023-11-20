@@ -2,86 +2,294 @@
     height: 12rem;
     background-color: rgb(241, 236, 236) !important;
 } */
-.navbar-nav{
+* {
+    /* border: 1px solid red; */
+}
+
+.navbar-nav {
     align-items: center;
     gap: 2rem;
 }
-.titulo-banco{
+
+.titulo-banco {
     color: #71B0FF !important;
     font-weight: 800 !important;
     margin: 1rem;
 }
-.card{
+
+/* .card {
     border-radius: 10px;
     border: 1px solid black;
-}
-.card-text{
+} */
+
+.card-text {
     color: rgb(0, 0, 0) !important;
     font-weight: 700 !important;
 }
-.bienvenida-usuario{
+
+.bienvenida-usuario {
     color: #11243B;
     font-weight: 800;
     text-align: center;
     font-size: 2rem;
 }
-.encabezados{
+
+.encabezados {
     color: #71B0FF !important;
     font-weight: 800;
     color: white !important;
-    background-color: #11243B; 
+    background-color: #11243B;
+    background-color: #f8cd51;
+    background-color: #04a4a4;
     text-align: center;
 }
 
-.cuerpo{
+.cuerpo {
     font-weight: 500;
-    color:#11243B;
-  background-color: #e5e3e394;
+    color: #11243B;
+    background-color: #e5e3e394;
 }
+
 table {
     border-collapse: collapse;
     background-color: white;
-    width: 40rem;
+    width: 100% !important;
+    margin: 2rem;
 }
 
 .encabezados th {
-    border: 2px solid white; /* Establece el borde de las celdas encabezadas */
-    padding: 8px; /* Añade espacio alrededor del contenido de las celdas encabezadas */
+    border: 2px solid white;
+    /* Establece el borde de las celdas encabezadas */
+    padding: 8px;
+    /* Añade espacio alrededor del contenido de las celdas encabezadas */
 }
 
 .cuerpo td {
-    border: 2px solid white; /* Establece el borde de las celdas del cuerpo de la tabla */
-    padding: 8px; /* Añade espacio alrededor del contenido de las celdas del cuerpo de la tabla */
+    border: 2px solid white;
+    /* Establece el borde de las celdas del cuerpo de la tabla */
+    padding: 8px;
+    /* Añade espacio alrededor del contenido de las celdas del cuerpo de la tabla */
     /* border-radius: 2rem; */
 }
 
-@media (min-width: 768px) {
-  .div-cardstabla{
-    flex-direction: row !important;
-    justify-content: space-around;
-  }
-.loanstitle{
-    padding-bottom: 2rem;
+.logosAccounts {
+    background-color: rgb(235 235 235);
+    height: 16vh;
+
+    /* border: 1px solid #11243B; */
 }
 
+.carddiv {
+    background-color: #89b7f196;
+    background-color: rgba(125, 179, 245, 0.158);
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around !important;
+    padding: 1rem;
 }
-.logocuenta{
-    width:2rem;
+
+.card-text {
+    color: rgb(235 235 235);
+    /* color: white !important; */
+    font-weight: lighter !important;
+    font-size: 1rem;
 }
-.logocuenta:hover{
- color: white;
- transform: scale(1.1);
- transition: transform 0.5s;
+
+
+
+.logocuenta {
+    width: 2rem;
 }
-.createaccount{
+
+.logocuenta:hover {
+    color: white;
+    transform: scale(1.1);
+    transition: transform 0.5s;
+}
+
+.createaccount {
     font-size: 14px;
-    color: #c5c2c2  !important;
+    color: #c5c2c2 !important;
     font-weight: 600;
     cursor: pointer;
 }
-.createaccount:hover{
+
+.createaccount:hover {
     color: white !important;
 }
-.create{
+
+.create {
     text-decoration: none;
+}
+
+.botonClose {
+    background-color: #1f75dd;
+    background-color: #71B0FF;
+    border: none;
+    color: white;
+    /* color: black; */
+    width: 9rem;
+    height: 2.5rem;
+    font-weight: 500;
+}
+
+.text-select {
+    color: #71B0FF;
+    text-align: center;
+}
+
+.selectaccount {
+    width: 16rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    border: color black;
+    /* color: #71B0FF; */
+}
+
+#exampleModal .modal-content .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+}
+
+.iconoLoans {
+    font-size: 4rem;
+}
+
+.textalert {
+    color: #1f75dd;
+    color: rgb(209, 123, 123);
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.botonaccounts {
+    border: none;
+}
+
+
+.div-cuenta {
+    margin: 2rem;
+    /* width: 50% !important; */
+}
+
+.logocuentas {
+    width: 8rem;
+}
+
+@media (min-width:320px) {
+    .div-cardstabla {
+        width: 100% !important;
+    }
+
+    .div-cuenta {
+        margin: 0.5rem !important;
+    }
+
+    .main-container {
+        width: 100% !important;
+        margin-bottom: 2rem !important;
+        margin-top: 1rem !important;
+    }
+
+    .fondo {
+        background-color: rgb(199 186 186 / 45%);
+        margin: 1rem;
+        padding: 1rem;
+    }
+}
+
+
+@media (min-width:500px) {
+    .div-cardstabla {
+        width: 100% !important;
+    }
+
+    .div-cuenta {
+        margin: 0rem !important;
+    }
+
+    .main-container {
+        width: 60% !important;
+
+    }
+
+    .cuentas-div {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+
+    .fondo {
+        background-color: rgb(199 186 186 / 45%);
+        margin: 1rem;
+        padding: 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .div-cardstabla {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        gap: 2rem;
+        align-items: center !important;
+    }
+
+    .bienvenida-usuario {
+        padding-bottom: 2rem !important;
+    }
+
+    .loanstitle {
+        /* padding-bottom: 2rem; */
+    }
+
+    .card-text {
+        color: rgb(235 235 235);
+        font-weight: lighter !important;
+        font-size: 1rem;
+    }
+
+    .cuentas-div {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-around !important;
+        /* gap: 5rem; */
+        height: 100% !important;
+        align-items: center;
+        width: 100% !important;
+    }
+
+    .div-cuenta {
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 80vh !important;
+        min-width: 90vw !important;
+    }
+
+    .div-tabla {
+        width: 80% !important;
+    }
+
+    .main-container {
+        width: 30% !important;
+    }
+
+    .fondo {
+        background-color: rgb(199 186 186 / 45%);
+        width: 40% !important;
+        padding: 0;
+        margin: 0;
+    }
+
+    .div-mayor {
+        display: flex;
+        justify-content: space-around !important;
+        align-items: center !important;
+        width: 100% !important;
+        min-height: 80vh !important;
+    }
 }

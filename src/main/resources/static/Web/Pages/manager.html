@@ -11,64 +11,119 @@
 </head>
 
 <body>
-    <!-- <div class="d-flex justify-content-between align-items-center m-5">
-        <h1>Client Rest Response</h1>
-        <h1>Client Manager</h1>
-    </div> -->
 
     <header></header>
-    <main id="app" class="d-flex justify-content-around ">
+    <main id="app" class="d-flex justify-content-around">
 
-        <div class="d-flex flex-column gap-3 m-3 align-items-center">
-
-            <h1>Client Manager</h1>
-
-
-            <form class="formulario p-3">
-                <label for="inputName">Name:</label>
-                <input class="form-control form-control-lg inputs" type="text" placeholder="Name"
-                    aria-label=".form-control-lg example" id="inputName" v-model="inputname">
-                <label for="inputLastName">LastName:</label>
-                <input class="form-control form-control-lg inputs " type="text" placeholder="lastName"
-                    aria-label=".form-control-lg example" id="inputLastName" v-model="inputlastname">
-                <label for="inputEmail">Email:</label>
-                <input class="form-control form-control-lg inputs" type="text" placeholder="Email"
-                    aria-label=".form-control-lg example" id="inputEmail" v-model="inputemail">
-                <button @click="addClient(inputname,inputlastname,inputemail)" type="button"
-                    class="btn btn-secondary btn-lg button m-3">Add
-                    Client</button>
-            </form>
-
-            <h1>Client List</h1>
+        <div class="d-flex  justify-content-around">
+            <div class="d-flex flex-column align-items-center gap-5">
 
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Email</th>
-                    </tr>
-                </thead>
-                <tbody v-for="client of clients ">
-                    <tr>
-                        <td>{{client.name}}</td>
-                        <td>{{client.lastName}}</td>
-                        <td>{{client.email}}</td>
-                    </tr>
+                <div>
+                    <h1>Client Manager</h1>
+                    <h2>Register Client:</h2>
+                    <form class="formulario p-3">
+                        <label for="inputName">Name:</label>
+                        <input class="form-control form-control-lg inputs" type="text" placeholder="Name"
+                            aria-label=".form-control-lg example" id="inputName" v-model="inputname">
+                        <label for="inputLastName">LastName:</label>
+                        <input class="form-control form-control-lg inputs " type="text" placeholder="lastName"
+                            aria-label=".form-control-lg example" id="inputLastName" v-model="inputlastname">
+                        <label for="inputEmail">Email:</label>
+                        <input class="form-control form-control-lg inputs" type="text" placeholder="Email"
+                            aria-label=".form-control-lg example" id="inputEmail" v-model="inputemail">
 
-                </tbody>
-            </table>
+                        <label for="inputPassword">Password:</label>
+                        <input class="form-control form-control-lg inputs " type="password" placeholder="Password"
+                            aria-label=".form-control-lg example" id="inputPassword" v-model="inputpassword">
+
+                        <button @click.prevent="addClient(inputname,inputlastname,inputemail,inputpassword)"
+                            type="button" class="btn btn-secondary btn-lg button m-3">Add
+                            Client</button>
+                    </form>
+                </div>
+
+                <div>
+                    <h1>Create Loan:</h1>
+                    <form class="d-flex flex-column formulario p-3">
+                        <label for="nameLoan">Name Loan:</label>
+                        <input class="form-control form-control-lg inputs" type="text" placeholder="Name Loan"
+                            id="nameLoan" aria-label=".form-control-lg example" v-model="nameLoan">
+
+                        <label for="amountLoan">Amount Loan:</label>
+                        <input class="form-control form-control-lg inputs" type="text" placeholder="Amount Loan"
+                            id="amountLoan" aria-label=".form-control-lg example" v-model="amountLoan">
+
+                        <label for="paymentsLoan">Payments:</label>
+                        <input class="form-control form-control-lg inputs" type="text" placeholder="payments Loan"
+                            aria-label=".form-control-lg example" id="paymentsLoan" v-model="paymentsLoan">
+
+                        <label for="interesLoan">Interes:</label>
+                        <input class="form-control form-control-lg inputs" type="text" placeholder="Interes Loan"
+                            aria-label=".form-control-lg example" id="interesLoan" v-model="interesLoan">
+
+                        <button class="btn btn-secondary btn-lg button m-3" style="width: 8rem;"
+                            @click.prevent="newLoan(nameLoan,amountLoan,paymentsLoan,interesLoan)">Crear</button>
+                    </form>
+                </div>
+
+                <div>
+                    <h2>Client List</h2>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Email</th>
+                            </tr>
+                        </thead>
+                        <tbody v-for="client of clients ">
+                            <tr>
+                                <td>{{client.name}}</td>
+                                <td>{{client.lastName}}</td>
+                                <td>{{client.email}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <h2>Loan List</h2>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Max Amount</th>
+                                <th scope="col">Interes</th>
+                                <th>Payments</th>
+                            </tr>
+                        </thead>
+                        <tbody v-for="loan of loans">
+                            <tr>
+                                <td>{{loan.name}}</td>
+                                <td>{{loan.maxAmount}}</td>
+                                <td>{{loan.interes}}</td>
+                                <td>{{loan.payments}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
 
-        <div class="d-flex align-items-center flex-column m-3">
+        <div class="d-flex align-items-center flex-column">
             <h1>Client Rest Response</h1>
             <pre class="data mt-3">{{allData}}</pre>
         </div>
+        <!-- <div class="d-flex align-items-center flex-column m-3"> -->
 
     </main>
     <footer>
-
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

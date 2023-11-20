@@ -9,6 +9,5 @@ public interface LoanService {
 
     Loan findLoanById(Long id);
     void saveLoan(Loan loan);
-
     Set<LoanDTO> findAllLoans();
 }

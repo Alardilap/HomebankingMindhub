@@ -1,13 +1,10 @@
 package com.mindhub.AppHomeBanking.controlers;
 
-import com.mindhub.AppHomeBanking.dtos.ClientDTO;
 import com.mindhub.AppHomeBanking.dtos.LoanApplicationDTO;
 import com.mindhub.AppHomeBanking.dtos.LoanDTO;
 import com.mindhub.AppHomeBanking.models.*;
 import com.mindhub.AppHomeBanking.repositories.*;
-import com.mindhub.AppHomeBanking.service.AccountService;
-import com.mindhub.AppHomeBanking.service.ClientService;
-import com.mindhub.AppHomeBanking.service.LoanService;
+import com.mindhub.AppHomeBanking.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,23 +12,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api")
 public class LoanController {
-
-//    @Autowired
-//    private LoanRepositories loanRepositories;
-
-    //    @Autowired
-//    private ClientRepositories clientRepositories;
-
-//    @Autowired
-//    private AccountRepositories accountRepositories;
 
     @Autowired
     private LoanService loanService;
@@ -43,16 +31,16 @@ public class LoanController {
     private AccountService accountService;
 
     @Autowired
-    private TransactionRepositories transactionRepositories;
+    private TransactionService transactionService;
 
     @Autowired
-    private ClientLoanRepositories clientLoanRepositories;
+    private ClientLoanService clientLoanService;
 
     @Transactional
-    @RequestMapping(value="/loans", method = RequestMethod.POST)
+    @PostMapping(value="/loans")
     public ResponseEntity<String> addLoan(@RequestBody LoanApplicationDTO loanDTO, Authentication authentication) {
 
-        Client client = clientService.findClientAuthentiByEmail(authentication.getName());
+        Client client = clientService.findClientByEmail(authentication.getName());
 //        Loan loan = loanRepositories.findById(loanDTO.getId()).orElse(null);
         Loan loan= loanService.findLoanById(loanDTO.getId());
 
@@ -77,16 +65,14 @@ public class LoanController {
             return new ResponseEntity<>("Numero de cuotas no disponible", HttpStatus.FORBIDDEN);
         }
 
-
             double amount = loanDTO.getAmount();
-            double increase = amount * 0.20;
+            double increase = amount * loan.getInteres() / 100;
             double newAmount = amount + increase;
 
-//            Account accountOrigen = accountRepositories.findByNumber(loanDTO.getNumberAccount());
             Account accountOrigen =accountService.findAccountNumber(loanDTO.getNumberAccount());
 
-            Transaction credit = new Transaction(TransactionType.CREDIT, "loan " + loan.getName() + " loan approved", LocalDateTime.now(), loanDTO.getAmount());
-            ClientLoan prestamo = new ClientLoan(newAmount, loanDTO.getPayments());
+            Transaction credit = new Transaction(TransactionType.CREDIT, "Loan " + loan.getName() + " loan approved", LocalDateTime.now(), loanDTO.getAmount(),accountOrigen.getBalance()+ loanDTO.getAmount(),true);
+            ClientLoan prestamo = new ClientLoan(newAmount, loanDTO.getPayments(),newAmount, loanDTO.getPayments());
 
             accountOrigen.setBalance(accountOrigen.getBalance() + loanDTO.getAmount());
             accountOrigen.addTransaction(credit);
@@ -94,10 +80,10 @@ public class LoanController {
             loan.addClientLoan(prestamo);
 
             accountService.accountSave(accountOrigen);
-            transactionRepositories.save(credit);
-            clientLoanRepositories.save(prestamo);
+            transactionService.saveTransaction(credit);
+            clientLoanService.saveClientLoan(prestamo);
             loanService.saveLoan(loan);
-           clientService.saveClient(client);
+            clientService.saveClient(client);
 
             return  new ResponseEntity<>("Loan Approved", HttpStatus.CREATED);
 
@@ -107,4 +93,47 @@ public class LoanController {
         return loanService.findAllLoans();
     }
 
+
+    @PostMapping("/newloan")
+    public Object newLoan(@RequestParam String name, @RequestParam Double maxAmount,@RequestParam List<Integer> payments, @RequestParam Integer interes,Authentication authentication) {
+
+    Client client = clientService.findClientByEmail(authentication.getName());
+
+    if(!client.getEmail().equals("AdminAgileBank@gmail.com")){
+        return  new ResponseEntity<>("Invalid user", HttpStatus.FORBIDDEN);
+    }
+
+    if(name.isBlank()){
+        return  new ResponseEntity<>("Name invalid", HttpStatus.FORBIDDEN);
+    }
+
+    if (Double.compare(maxAmount, 0.0) == 0 || maxAmount<=0 || Double.isNaN(maxAmount)) {
+            return new ResponseEntity<>("Invalid maximum amount", HttpStatus.FORBIDDEN);
+    }
+        boolean invalidPayments = false;
+
+        if (payments.isEmpty()) {
+            invalidPayments = true;
+        } else {
+            for (Integer payment : payments) {
+                if (payment <= 0) {
+                    invalidPayments = true;
+                    break;
+                }
+            }
+        }
+        if (invalidPayments) {
+            return new ResponseEntity<>("Enter valid number of payments", HttpStatus.FORBIDDEN);
+        }
+
+    if(interes==null || interes<=0){
+        return  new ResponseEntity<>("Interes invalid",HttpStatus.FORBIDDEN);
+    }
+
+    Loan newLoan= new Loan (name,maxAmount,payments,interes);
+      loanService.saveLoan(newLoan);
+      return new LoanDTO(newLoan);
+    }
 }
+
+

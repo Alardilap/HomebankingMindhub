@@ -13,6 +13,7 @@ import java.util.List;
 public interface ClientRepositories extends JpaRepository <Client, Long>{
    Client findByEmail(String email);
    boolean existsByEmail(String email);
+
    //Este método tiene un nombre específico: findByEmail, y se utiliza para definir
 //una consulta personalizada que busca un objeto de tipo Client
 //en la base de datos por su dirección de correo electrónico (email).

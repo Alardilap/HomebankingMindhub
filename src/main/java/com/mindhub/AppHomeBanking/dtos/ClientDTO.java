@@ -28,7 +28,7 @@ public class ClientDTO {
         this.accounts = client
                 .getAccount()
                 .stream()
-                .map(account -> new AccountDTO(account))
+                .map(account -> new AccountDTO(account)).filter(AccountDTO::getActive)
                 .collect(Collectors.toList());
         this.loans = client
                 .getClientLoans()

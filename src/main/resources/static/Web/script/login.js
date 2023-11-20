@@ -15,20 +15,82 @@ createApp({
 
     },
     methods: {
+        // register() {
+        //     console.log(this.inputEmail, this.inputName)
+        //     axios.post("/api/clients",
+        //         `name=${this.inputName}&lastName=${this.inputLastName}&email=${this.inputEmail}&password=${this.inputPassword}`
+        //     )
+        //         .then((response) => {
+        //             axios.post("/api/login", `email=${this.inputEmail}&password=${this.inputPassword}`)
+        //                 .then((response) => {
+        //                     this.createAccount()
+        //                     Swal.fire({
+        //                         position: 'center',
+        //                         icon: 'success',
+        //                         iconColor: 'grey',
+        //                         title: 'Login Ok ',
+        //                         showConfirmButton: false,
+        //                         timer: 900
+        //                     }), setTimeout(() => {
+        //                         location.href = "Web/Pages/accounts.html"
+        //                     }, 1700)
+        //                 }).catch((err) => {
+        //                     if (err) {
+        //                         let mesageerrorregister = err.response.data
+        //                         Swal.fire({
+        //                             position: 'center',
+        //                             icon: 'error',
+        //                             iconColor: 'red',
+        //                             text: mesageerrorregister,
+        //                             showConfirmButton: false,
+        //                             timer: 1500,
+        //                             customClass: {
+        //                                 text: 'custom-swal-text' // Definir una clase personalizada
+        //                             }
+        //                         })
+        //                     }
+
+        //                 }
+        //                 )
+        //         })
+        // },
         register() {
-            console.log(this.inputEmail, this.inputName)
-            axios.post("/api/clients",
-                `name=${this.inputName}&lastName=${this.inputLastName}&email=${this.inputEmail}&password=${this.inputPassword}`
-            )
+            console.log(this.inputEmail, this.inputName);
+
+            axios.post("/api/clients", `name=${this.inputName}&lastName=${this.inputLastName}&email=${this.inputEmail}&password=${this.inputPassword}`)
                 .then((response) => {
-                    axios.post("/api/login", `email=${this.inputEmail}&password=${this.inputPassword}`)
-                        .then((response) => {
-                            this.createAccount()
-                            location.href = "Web/Pages/accounts.html"
-                        }).catch((err) => console.log(err))
+                    return axios.post("/api/login", `email=${this.inputEmail}&password=${this.inputPassword}`);
                 })
-                .catch((err) => console.log(err));
+                .then((response) => {
+
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        iconColor: 'grey',
+                        title: 'Login Ok ',
+                        showConfirmButton: false,
+                        timer: 900
+                    }), setTimeout(() => {
+                        this.createAccount()
+                        location.href = "Web/Pages/accounts.html"
+                    }, 1700)
+                })
+                .catch((error) => {
+                    let mesageerrorregister = error.response ? error.response.data : 'Error desconocido';
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        iconColor: 'red',
+                        text: mesageerrorregister,
+                        showConfirmButton: false,
+                        timer: 1500,
+                        customClass: {
+                            text: 'custom-swal-text'
+                        }
+                    });
+                });
         },
+
         clearData() {
             this.inputName = "",
                 this.inputLastName = "",
@@ -47,10 +109,32 @@ createApp({
                         timer: 900
                     })
                     setTimeout(() => {
-                        location.href = "/Web/Pages/accounts.html"
+                        if (this.loginEmail === "AdminAgileBank@gmail.com") {
+                            location.href = "/Web/Pages/manager.html"
+                        } else {
+                            location.href = "/Web/Pages/accounts.html"
+                        }
+
                     }, 1700)
 
-                }).catch((err) => console.log(err))
+                }).catch((err) => {
+                    if (err.response.status === 401) {
+                        let mesageerror = "Incorrect email or password"
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            iconColor: 'red',
+                            text: mesageerror,
+                            showConfirmButton: false,
+                            timer: 1500,
+                            customClass: {
+                                text: 'custom-swal-text' // Definir una clase personalizada
+                            }
+                        })
+                    }
+                    console.log(err)
+                }
+                )
         },
         signOut() {
             axios.post("/api/logout")

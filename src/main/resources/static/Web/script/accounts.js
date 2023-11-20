@@ -5,23 +5,30 @@ createApp({
         return {
             accounts: [],
             loans: [],
+            accountTypes: [],
+            selectaccountType: "",
         };
     },
     created() {
         this.loadData();
+        this.accountType();
     },
     methods: {
         loadData() {
-            axios
-                .get("/api/current")
+            axios.get("/api/current")
                 .then((response) => {
                     this.accounts = response.data.accounts.sort((a, b) => a.id - b.id)
                     this.loans = response.data.loans
-                    console.log(response.data)
-                    console.log(this.loans)
                 })
                 .catch((err) => console.log(err));
         },
+        accountType() {
+            axios.get("/api/accountType")
+                .then((response) => {
+                    this.accountTypes = response.data
+                }).catch((err) => console.log(err));
+        },
+
         signOut() {
             axios.post("/api/logout")
                 .then((response) => {
@@ -38,55 +45,68 @@ createApp({
                         location.href = "/index.html"
                     }, 1700)
 
-
                 }).catch((err) => console.log(err))
         },
-        createAccount() {
-            Swal.fire({
-                title: 'Do you want to create an account?',
-                showDenyButton: true,
-                showCancelButton: false,
-                confirmButtonText: 'Create',
-                denyButtonText: `Don't Create`,
-            }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    axios.post("/api/clients/current/accounts")
-                        .then((response) => {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                iconColor: 'green',
-                                title: 'account created successfully',
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
-                            setTimeout(() => {
-                                this.loadData()
-                            }, 1700)
-
-                        }).catch((err) => {
-                            let errorMessage = err.response.data;
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'error',
-                                iconColor: 'red',
-                                text: errorMessage,
-                                showConfirmButton: false,
-                                timer: 1500,
-                                customClass: {
-                                    text: 'custom-swal-text' // Definir una clase personalizada
-                                }
-                            })
+        deleteAccount(numberAccount) {
+            axios.patch("/api/account/modify", `number=${numberAccount}`)
+                .then((response) => {
+                    this.loadData()
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        iconColor: 'grey',
+                        title: 'Deleted account',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }).catch((err) => {
+                    let errorMessage = err.response.data;
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        iconColor: 'red',
+                        text: errorMessage,
+                        showConfirmButton: false,
+                        timer: 1500,
+                        customClass: {
+                            text: 'custom-swal-text'
                         }
+                    })
+                })
+        },
 
-                        )
-                    Swal.fire('Created!', '', 'success')
-                } else if (result.isDenied) {
-                    Swal.fire('Account not created', '', 'info')
-                }
-            })
+        metododos() {
+            axios.post("/api/clients/current/accounts", `accountType=${this.selectaccountType}`)
+                .then((response) => {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        iconColor: 'green',
+                        title: 'account created successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    console.log(response.data)
+                    setTimeout(() => {
+                        this.loadData()
+                    }, 1700)
 
-        }
-    },
+                }).catch((err) => {
+                    let errorMessage = err.response.data;
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        iconColor: 'red',
+                        text: errorMessage,
+                        showConfirmButton: false,
+                        timer: 1500,
+                        customClass: {
+                            text: 'custom-swal-text'
+                        }
+                    })
+                })
+        },
+
+
+    }
 }).mount('#app');

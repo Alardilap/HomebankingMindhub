@@ -1,30 +1,38 @@
+* {
+    /* border: 1px solid red; */
+}
+
 table {
     width: 80%;
     border-collapse: collapse;
 }
 
- td {
+td {
     border: 2px solid white;
     padding: 8px;
     text-align: left;
-    font-size:0.6rem;
-}
-.cuerpo{
-    background-color: rgba(173, 165, 152, 0.295);
-    font-weight: 500;
-    color:#11243B;
+    font-size: 0.6rem;
 }
 
-th{
-    border:2px solid white;
-    padding: 8px;
-   
-    font-size:0.6rem;  
+.cuerpo {
+    background-color: rgba(173, 165, 152, 0.295);
+    font-weight: 500;
+    color: #11243B;
 }
-.encabezados{
+
+
+
+th {
+    border: 2px solid white;
+    padding: 8px;
+
+    font-size: 0.6rem;
+}
+
+.encabezados {
     font-weight: 800;
     color: white !important;
-    background-color: #11243B !important; 
+    background-color: #04a4a4 !important;
     text-align: center;
 }
 
@@ -35,17 +43,118 @@ th{
 tr:hover {
     background-color: #ddd;
 } */
-.card-text{
-    font-size:1rem;
-}
-@media (min-width: 768px) {
-   th,td{
+.card-text {
     font-size: 1rem;
-   }
-   .card-text{
-    font-size:1.3rem;
 }
-.card{
-    width: 22rem !important;
+
+
+
+.logocuentas {
+    width: 8rem;
 }
+
+.titulo-banco {
+    color: #71B0FF !important;
+    font-weight: 800 !important;
+    margin: 1rem;
+}
+
+
+.card-text {
+    color: rgb(235 235 235);
+    color: black;
+    font-weight: lighter !important;
+    font-size: 1.3rem;
+}
+
+.card-body {
+    background-color: rgba(125, 179, 245, 0.158);
+    border: 1px solid white;
+    /* padding: 1rem; */
+    /* width: 40vw; */
+    margin-bottom: 2rem;
+}
+
+.logosAccounts {
+    background-color: rgb(235 235 235);
+    /* height: 12vh;
+    width: 120vh;
+    width: 40vw; */
+}
+
+.logosAccounts {
+    /* width: 90vw !important;
+    height: 20vh !important; */
+    margin-top: 1rem;
+
+}
+
+/* @media (min-width: 320px) {
+
+    .div-contenedoracc {
+        width: 100vw !important;
     }
+
+    .logosAccounts {
+        width: 90vw !important;
+        height: 20vh !important;
+        margin-top: 1rem;
+    }
+
+    .card-body {
+        width: 90vw !important;
+        height: 80vh !important;
+        margin-bottom: 1rem;
+    }
+
+    .container-table {
+        width: 100vw !important;
+    }
+
+    table {
+        width: 100vw !important;
+        margin: 1rem;
+    }
+} */
+
+@media (min-width: 768px) {
+    .card-body {
+        background-color: rgba(125, 179, 245, 0.158);
+        border: 1px solid white;
+        padding: 1rem;
+        width: 40vw;
+        /* display: flex;
+        align-items: center;
+        justify-content: center; */
+    }
+
+    .logosAccounts {
+        background-color: rgb(235 235 235);
+        height: 12vh;
+        width: 120vh;
+        width: 40vw;
+        /* border: 1px solid #11243B; */
+    }
+
+    .div-contenedoracc {
+        margin: 2rem;
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    th,
+    td {
+        font-size: 1rem;
+    }
+
+    .card-text {
+        font-size: 1.3rem;
+    }
+
+    /* .card-account {
+        width: 35rem !important;
+        width: 150vh;
+    } */
+}

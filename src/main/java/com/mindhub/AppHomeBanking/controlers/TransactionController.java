@@ -1,9 +1,6 @@
 package com.mindhub.AppHomeBanking.controlers;
 
 import com.mindhub.AppHomeBanking.models.*;
-import com.mindhub.AppHomeBanking.repositories.AccountRepositories;
-import com.mindhub.AppHomeBanking.repositories.ClientRepositories;
-import com.mindhub.AppHomeBanking.repositories.TransactionRepositories;
 import com.mindhub.AppHomeBanking.service.AccountService;
 import com.mindhub.AppHomeBanking.service.ClientService;
 import com.mindhub.AppHomeBanking.service.TransactionService;
@@ -12,29 +9,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api")
 public class TransactionController {
-
-//    @Autowired
-//    private ClientRepositories clientRepositories;
-
-    //    @Autowired
-//    private TransactionRepositories transactionRepositories;
-
-//    @Autowired
-//    private AccountRepositories accountRepositories;
 
     @Autowired
     private AccountService accountService;
@@ -45,14 +28,9 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-
     @Transactional
-    @RequestMapping(path = "/transactions", method = RequestMethod.POST)
+ @PostMapping(path = "/transactions")
     public ResponseEntity<?> addTransaction(@RequestParam Double amount, @RequestParam String description, @RequestParam String originnumber, @RequestParam String destinationnumber, Authentication authentication) {
-
-        if (amount == null || amount <= 0.0) {
-            return new ResponseEntity<>("The value of amount is not valid", HttpStatus.FORBIDDEN);
-        }
 
         if (description.isBlank()) {
             return new ResponseEntity<>("The description cannot be empty", HttpStatus.FORBIDDEN);
@@ -65,9 +43,7 @@ public class TransactionController {
             return new ResponseEntity<>("Please enter a valid account number", HttpStatus.FORBIDDEN);
         }
 
-//        Account accountOrigen = accountRepositories.findByNumber(originnumber);
         Account accountOrigen = accountService.findAccountNumber(originnumber);
-//        Account accountDestino = accountRepositories.findByNumber(destinationnumber);
         Account accountDestino = accountService.findAccountNumber(destinationnumber);
 
         if (accountDestino == null) {
@@ -78,7 +54,6 @@ public class TransactionController {
         }
 
         String nameClient = authentication.getName();
-//        Client client = clientRepositories.findByEmail(nameClient);
         Client client = clientService.findClientByEmail(nameClient);
 
         if (client == null) {
@@ -100,8 +75,8 @@ public class TransactionController {
             return new ResponseEntity<>("insufficient founds", HttpStatus.FORBIDDEN);
         }
 
-        Transaction debit = new Transaction(TransactionType.DEBIT, "to " + destinationnumber + ": " + description, LocalDateTime.now(), Double.parseDouble("-" + amount));
-        Transaction credit = new Transaction(TransactionType.CREDIT, "from " + originnumber + ": " + description, LocalDateTime.now(), Double.parseDouble("+" + amount));
+        Transaction debit = new Transaction(TransactionType.DEBIT, "to " + destinationnumber + ": " + description, LocalDateTime.now(), Double.parseDouble("-" + amount),accountOrigen.getBalance()-amount,true);
+        Transaction credit = new Transaction(TransactionType.CREDIT, "from " + originnumber + ": " + description, LocalDateTime.now(), Double.parseDouble("+" + amount),accountDestino.getBalance()+amount,true);
         accountOrigen.addTransaction(debit);
         accountDestino.addTransaction(credit);
         accountOrigen.setBalance(accountOrigen.getBalance()-amount);

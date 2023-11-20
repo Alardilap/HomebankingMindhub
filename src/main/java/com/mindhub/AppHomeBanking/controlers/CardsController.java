@@ -1,12 +1,9 @@
 package com.mindhub.AppHomeBanking.controlers;
 
-import com.mindhub.AppHomeBanking.dtos.AccountDTO;
+import com.mindhub.AppHomeBanking.Utils.CardUtils;
 import com.mindhub.AppHomeBanking.dtos.CardDTO;
 import com.mindhub.AppHomeBanking.models.*;
-
 import com.mindhub.AppHomeBanking.repositories.CardRepositories;
-import com.mindhub.AppHomeBanking.repositories.ClientRepositories;
-import com.mindhub.AppHomeBanking.service.AccountService;
 import com.mindhub.AppHomeBanking.service.CardService;
 import com.mindhub.AppHomeBanking.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,82 +18,76 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 public class CardsController {
 
-//@Autowired
-//private CardRepositories cardRepositories;
+    @Autowired
+    private CardService cardService;
 
- @Autowired
- private CardService cardService;
-
-@Autowired
-private ClientService clientService;
-//@Autowired
-//private ClientRepositories clientRepositories;
-
-    LocalDate date = LocalDate.now();
-
-    public int getRandomNumber(int min, int max) {return (int) ((Math.random() * (max - min)) + min);}
+    @Autowired
+    private ClientService clientService;
 
     public String generateNumberCard() {
-        StringBuilder cardNumber; //3973-4475-2239-2248
+        String cardNumber;
         do {
-            cardNumber = new StringBuilder();
-            for (int i = 0; i < 16; i++) {
-                cardNumber.append(getRandomNumber(0, 9));
-                if ((i + 1) % 4 == 0 && i != 15) cardNumber.append("-");
-            }
+            cardNumber = CardUtils.generateCardNumber();
         }
         while (cardService.existsByNumber(cardNumber.toString()));
         return cardNumber.toString();
     }
-//    String string = "hola";
-//    string = string + " como estas";
 
-    public String generateCvvCard() {
-        StringBuilder cvvNumber;
-            cvvNumber = new StringBuilder();
-            for (byte i = 0; i <= 2; i++) {
-                cvvNumber.append(getRandomNumber(0, 9));
-            }
-        return cvvNumber.toString();
-    }
-
-    @RequestMapping(path = "/clients/current/cards", method = RequestMethod.POST)
-    public ResponseEntity<?> addCard(@RequestParam CardColor color,  @RequestParam CardType type, Authentication authentication) {
+    @PostMapping(path = "/clients/current/cards")
+    public ResponseEntity<?> addCard(@RequestParam CardColor color, @RequestParam CardType type, Authentication authentication) {
 
         String email = authentication.getName();
         Client client = clientService.findClientByEmail(email);
 
-        if(client.getCards().stream().filter(card-> card.getType().equals(type)).collect(Collectors.toSet()).size() ==3 ){
+        if(client.getCards().stream().filter(card -> card.getType()==type && card.getColor()==color && card.getActive()).count() >=1) {
 
             return new ResponseEntity<>("It is not possible to create another card", HttpStatus.FORBIDDEN);
+
         }
 
-            Card card = new Card();
+        Card card = new Card();
 
-            card.setCardHolder(client.getName()+" "+client.getLastName());
-            card.setNumber(generateNumberCard());
-            card.setCvv(generateCvvCard());
-            card.setColor(color);
-            card.setType(type);
-            card.setFromDate(date);
-            card.setThruDate(date.plusYears(5));
+        card.setCardHolder(client.getName() + " " + client.getLastName());
+        card.setNumber(generateNumberCard());
+        card.setCvv(CardUtils.getCVV());
+        card.setColor(color);
+        card.setType(type);
+        card.setFromDate(LocalDate.now());
+        card.setThruDate(LocalDate.now().plusYears(5));
+        client.addCard(card);
+        cardService.saveCard(card);
 
-           client.addCard(card);
-          cardService.saveCard(card);
-
-            return new ResponseEntity<>("Card Created", HttpStatus.CREATED);
+        return new ResponseEntity<>("Card Created", HttpStatus.CREATED);
     }
+
     @GetMapping("/clients/current/cards")
     public Set<CardDTO> getCards(Authentication authentication) {
         Client client = clientService.findClientByEmail(authentication.getName());
-        Set<CardDTO> cardsDTOS = client.getCards().stream().map(card -> new CardDTO(card)).collect(Collectors.toSet());
-        if(client != null && cardsDTOS != null) {
+        Set<CardDTO> cardsDTOS = client.getCards().stream().map(card -> new CardDTO(card)).filter(cardDTO -> cardDTO.getActive()==true).collect(Collectors.toSet());
+        if (client != null && cardsDTOS != null) {
             return cardsDTOS;
-        }else{
+        } else {
             return new HashSet<>();
         }
+    }
+
+    @PatchMapping("/cards/modify")
+    public Object cardModify(@RequestParam Boolean active, @RequestParam Long id, Authentication authentication){
+
+        Client client = clientService.findClientByEmail(authentication.getName());
+    Card modifyCard = cardService.findByIdAndClientCards(id,client);
+
+
+    if(modifyCard==null){
+       return null;
+    }
+
+        modifyCard.setActive(active);
+        cardService.saveCard(modifyCard);
+        clientService.saveClient(client);
+     return new CardDTO(modifyCard);
     }
 }

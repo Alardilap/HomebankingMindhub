@@ -23,27 +23,50 @@ createApp({
                 .then((response) => {
                     this.loansAvailable = response.data
 
+                    console.log(this.loansAvailable)
                 }).catch((err) => console.log(err))
-
         },
+
         accounts() {
             axios.get("/api/clients/current/accounts")
                 .then((response) => {
-                    this.accountsOwn = response.data.map(account => account.number)
+                    this.accountsOwn = response.data.filter(accounts => accounts.active == true).map(account => account.number)
                 }).catch((err) => console.log(err))
         },
+
         newloan() {
             axios.post("/api/loans", {
                 id: this.TypeLoan.id,
                 amount: this.amount,
                 payments: this.payments,
                 numberAccount: this.accountTransfer,
-
             }
             ).then((response) => {
-                console.log(response.data)
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    iconColor: 'grey',
+                    title: 'Approved loan',
+                    showConfirmButton: false,
+                    timer: 900
+                }), setTimeout(() => {
+                    window.location.href = "./accounts.html";
+                }, 1700)
 
-            }).catch((err) => console.log(err))
+            }).catch((err) => {
+                let mesageerrorloan = err.response ? err.response.data : 'Error desconocido';
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    iconColor: 'red',
+                    text: mesageerrorloan,
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: {
+                        text: 'custom-swal-text' // Definir una clase personalizada
+                    }
+                })
+            })
         },
 
     },
@@ -54,12 +77,12 @@ createApp({
         },
         typeloan() {
             this.loansAvailableCoutas = this.TypeLoan.payments
-
         },
         capturarValorCuota() {
             if (this.amount && this.payments) {
                 let valorAmount = parseFloat(this.amount)
-                this.calculateQuota = "Monthly payment will be $" + ((valorAmount + (valorAmount * 0.20)) / this.payments).toFixed(2);
+                this.calculateQuota = "Monthly payment will be $" + ((valorAmount + (valorAmount * this.TypeLoan.interes / 100)) / this.payments).toFixed(2)
+                    + " and interes will be " + this.TypeLoan.interes + "%"
             } else {
                 this.calculateQuota = ""
             }
@@ -67,12 +90,14 @@ createApp({
         maxAmount() {
             if (this.amount > this.TypeLoan.maxAmount) {
                 this.advertencia = `The maximum amount available to request is $${this.TypeLoan.maxAmount.toLocaleString()}`
+
                 console.log(this.advertencia)
             } else {
                 this.advertencia = ""
             }
+        },
 
-        }
+
     }
 }).mount('#app');
 

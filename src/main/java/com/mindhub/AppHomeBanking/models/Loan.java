@@ -14,9 +14,11 @@ public class Loan {
     @GenericGenerator(name = "native", strategy = "native")
     private Long id;
     private String name;
-    private double maxAmount;
+    private Double maxAmount;
+    private Integer interes;
     @ElementCollection
     public List<Integer> payments;
+//    private Double debtpayments;
 
     @OneToMany(mappedBy = "loan", fetch = FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();
@@ -24,10 +26,11 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan(String name, double maxAmount, List<Integer> payments) {
+    public Loan(String name, double maxAmount, List<Integer> payments, Integer interes) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
+        this.interes= interes;
     }
 
     public void addClientLoan(ClientLoan clientLoan){
@@ -67,4 +70,11 @@ public class Loan {
         this.payments = payments;
     }
 
+    public Integer getInteres() {
+        return interes;
+    }
+
+    public void setInteres(Integer interes) {
+        this.interes = interes;
+    }
 }

@@ -10,7 +10,6 @@ createApp({
             accountDestination: "",
             amount: "",
             description: "",
-
         };
     },
     created() {

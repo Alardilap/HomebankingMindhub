@@ -32,28 +32,44 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/index.html").permitAll()
-                .antMatchers("/web/Images").permitAll()
-                .antMatchers("/web/Pages/login.html").permitAll()
-                .antMatchers(HttpMethod.POST,"/app/login").permitAll()
-//                .antMatchers("/web/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/clients/").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
+                .antMatchers("/api/login").permitAll()
+                .antMatchers("/api/logout").hasAuthority("CLIENT")
+                .antMatchers("/Web/Pages/manager.html").hasAuthority("ADMIN")
+                .antMatchers("/Web/Pages/**").hasAuthority("CLIENT")
+                .antMatchers("/Web/Images/**").permitAll()
+                .antMatchers("/Web/script/manager.js").hasAuthority("ADMIN")
+                .antMatchers("/Web/script/**").permitAll()
+                .antMatchers("/Web/Styles/manager.css").hasAuthority("ADMIN")
+                .antMatchers("/Web/Styles/**").permitAll()
+                .antMatchers("/rest/**").hasAuthority("ADMIN")
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/web/pages/accounts.html","/web/pages/transfer.html").hasAuthority("CLIENT")
-//                .antMatchers(HttpMethod.GET, "/api/accounts/**").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.GET, "/api/clients/current/accounts").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/clients/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/transactions").permitAll();
-//                .antMatchers(HttpMethod.GET, "/api/clients/**").hasAuthority("CLIENT");
-//                .anyRequest().denyAll();
-
+                .antMatchers(HttpMethod.GET,"/api/accounts").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/accounts/{id}").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST,"/api/clients/current/accounts").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.GET,"/api/clients/current/accounts").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.GET,"/api/accountType").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.PATCH,"/api/account/modify").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST,"/api/clients/current/cards").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.GET,"/api/clients/current/cards").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.PATCH,"/api/cards/modify").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST,"/api/clients").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/api/clients").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/current").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST,"/api/loan/payments").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST,"/api/loans").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.GET,"/api/loans").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST,"/api/newloan").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/api/transactions").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.GET,"/api/clientLoans/{id}").permitAll()
+                .antMatchers(HttpMethod.POST,"/loan/payments").hasAuthority("CLIENT")
+                .anyRequest().denyAll();
 
         http.formLogin()
                 .usernameParameter("email") //alardila@pgmail.com
                 .passwordParameter("password") //12345
                 .loginPage("/api/login"); //cuando un usuario intenta acceder y no esta en nuestra bd se redirigirá a esta url o pagina
 
-        //        http.logout().logoutUrl("/api/logout"); Esto inicia la configuración del proceso de cierre de sesión.
+        // http.logout().logoutUrl("/api/logout"); Esto inicia la configuración del proceso de cierre de sesión.
 //        Esto establece la URL a la que los usuarios pueden acceder para cerrar sesión. En este caso, al acceder a "/app/logout", la sesión del usuario se cerrará.
         http.logout()
                 .logoutUrl("/api/logout").deleteCookies("JESSIONID");

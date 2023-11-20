@@ -2,7 +2,6 @@ package com.mindhub.AppHomeBanking.controlers;
 
 import com.mindhub.AppHomeBanking.dtos.ClientDTO;
 import com.mindhub.AppHomeBanking.models.Client;
-import com.mindhub.AppHomeBanking.repositories.ClientRepositories;
 import com.mindhub.AppHomeBanking.service.ClientService;
 import org.springframework.security.core.Authentication;;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,34 +9,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/api")
 public class ClientController {
-//    @Autowired
-//    private ClientRepositories clientRepositories;
 
     @Autowired
     private ClientService clientService;
+
     @GetMapping("/clients")
     public Set<ClientDTO> getClients() {
 
-//        List<Client> clients = clientRepositories.findAll();
-//
-//        Stream<Client> streamClients = clients.stream();
-//
-//        Stream<ClientDTO> streamClientsDto = streamClients.map(client -> new ClientDTO(client));
-//
-//        Set<ClientDTO> clientsDtos = streamClientsDto.collect(Collectors.toSet());
-//
-//        return clientsDtos;
         return clientService.getAllClientsDTO();
     }
 
@@ -49,15 +33,26 @@ public class ClientController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @RequestMapping(path = "/clients", method = RequestMethod.POST)
+    @PostMapping(path = "/clients")
     public ResponseEntity<?> register(
 
             @RequestParam String name, @RequestParam String lastName,
 
             @RequestParam String email, @RequestParam String password) {
 
-        if (name.isBlank() || lastName.isBlank() || email.isBlank() || password.isEmpty()) {
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+        String regexName = "^[a-zA-Z\\s']+$";
+        if (name.isBlank() || !name.matches(regexName)){
+            return new ResponseEntity<>("Please enter a valid name", HttpStatus.FORBIDDEN);
+        }
+
+        if(lastName.isBlank()  || !name.matches(regexName)){
+            return new ResponseEntity<>("Please enter a valid lastName", HttpStatus.FORBIDDEN);
+
+        }if(password.isEmpty()){
+            return new ResponseEntity<>("Please enter a valid password", HttpStatus.FORBIDDEN);
+        }
+        if(email.isEmpty()){
+            return new ResponseEntity<>("Please enter a valid email", HttpStatus.FORBIDDEN);
         }
 
         if (clientService.existsClientByEmail(email)) {
@@ -72,7 +67,7 @@ public class ClientController {
 
     }
 
-    @RequestMapping("/current")
+    @GetMapping("/current")
     public ClientDTO getCurrentClient(Authentication authentication) {
         if (authentication != null) {
             String email = authentication.getName();
@@ -85,8 +80,3 @@ public class ClientController {
         return null;
     }
 }
-
-
-
-
-

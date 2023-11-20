@@ -1,4 +1,4 @@
-/* *{
+/* * {
     border: 1px red solid;
 } */
 
@@ -129,4 +129,8 @@ input[type="radio"]:checked {
     font-weight: 400;
     color: #11243B;
     font-size: 1rem;
+}
+
+.lupaoption {
+    width: 10rem;
 }

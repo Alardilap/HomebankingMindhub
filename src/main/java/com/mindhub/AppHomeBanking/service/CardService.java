@@ -1,6 +1,8 @@
 package com.mindhub.AppHomeBanking.service;
 
+import com.mindhub.AppHomeBanking.controlers.CardsController;
 import com.mindhub.AppHomeBanking.models.Card;
+import com.mindhub.AppHomeBanking.models.Client;
 
 public interface CardService {
 
@@ -8,5 +10,7 @@ public interface CardService {
 
     boolean existsByNumber(String number);
 
+    Card findCardById(Long id);
 
+    Card findByIdAndClientCards(Long id, Client client);
 }

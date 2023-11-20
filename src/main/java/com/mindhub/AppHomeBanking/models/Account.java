@@ -17,8 +17,9 @@ public class Account {
     private String number;
     private LocalDate creationDate;
     private double balance;
-
-
+    private Boolean active = true;
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
 
     //Establezco el tipo de relación que tendran mis clases
     @ManyToOne(fetch = FetchType.EAGER)
@@ -31,11 +32,12 @@ private Set<Transaction> transactions = new HashSet<>();
 
     public Account(){
     }
-     public Account (String number , LocalDate creationDate, double balance){
+     public Account (String number , LocalDate creationDate, double balance, Boolean active, AccountType accountType){
         this.number= number;
         this.creationDate= creationDate;
         this.balance=balance;
-     }
+        this.active=active;
+        this.accountType= accountType;}
 
     public String getNumber() {
         return number;
@@ -78,7 +80,6 @@ private Set<Transaction> transactions = new HashSet<>();
         this.client = client;
     }
 
-
     public Set<Transaction> getTransactions() {
         return transactions;
     }
@@ -88,4 +89,23 @@ private Set<Transaction> transactions = new HashSet<>();
         transactions.add(transaction); //A la propiedad accounts de esta clase, le vamos a agregar la cuenta que recibimos por parametro
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
 }

@@ -20,14 +20,19 @@ public class Transaction {
     private String description;
     @ManyToOne(fetch = FetchType.EAGER)
     private Account account;
+    private Double currentBalance;
+
+    private Boolean active = true;
 
     private Transaction() {
     }
-    public Transaction(TransactionType type, String description, LocalDateTime date, Double amount) {
+    public Transaction(TransactionType type, String description, LocalDateTime date, Double amount, Double currentBalance, Boolean active) {
         Type = type;
         this.description = description;
         Date = date;
         this.amount = amount;
+        this.currentBalance=currentBalance;
+        this.active=active;
     }
 
     public Long getId() {
@@ -76,5 +81,19 @@ public class Transaction {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Double getCurrentBalance() {
+        return currentBalance;
+    }
+
+    public void setCurrentBalance(Double currentBalance) {
+        this.currentBalance = currentBalance;
+    }
+    public Boolean getActive() {
+        return active;
+    }
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

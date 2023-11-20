@@ -99,12 +99,25 @@ label {
     font-weight: 600;
 }
 
+@media (min-width: 320px) {
+    .contenedor-nav {
+        justify-content: space-between !important;
+        align-items: center;
+    }
+}
+
+@media (min-width: 989px) {
+    .contenedor-nav {
+        justify-content: space-between !important;
+        align-items: center;
+        width: 100%;
+    }
+}
+
 @media (min-width: 564px) {
     .formcard {
-
         height: 15rem;
         width: 23rem;
-
     }
 
     .createcard {
@@ -112,16 +125,15 @@ label {
     }
 
     .contenedor-nav {
-        justify-content: space-between !important;
+        justify-content: space-around !important;
         align-items: center;
     }
 }
 
-@media (min-width: 990px) {
+@media (min-width: 1180px) {
     .formcard {
         height: 17rem;
         width: 33rem;
-
     }
 
     .createcard {
@@ -142,7 +154,6 @@ label {
     }
 
     .contenedor-form {
-
         gap: 2rem;
     }
 }
@@ -177,3 +188,70 @@ label {
     color: #11243B;
     font-size: 1rem;
 }
+
+/* //TEXTO MODAL */
+.textomodal {
+    font-weight: lighter;
+    color: rgb(143, 142, 142);
+    font-size: 1.2rem;
+}
+
+.textContinue {
+    font-weight: 500;
+    color: #1f75dd;
+    margin-top: 0.5rem;
+}
+
+.botonClose {
+    background-color: #1f75dd;
+    border: none;
+    color: white;
+    width: 9rem;
+    height: 2.5rem;
+    font-weight: 500;
+}
+
+#exampleModal .modal-dialog {
+    max-width: 500px;
+
+
+}
+
+#exampleModal {
+    transition: 0.3s;
+}
+
+.modal-content {
+    height: 27rem;
+}
+
+.imagenmodal {
+    margin-bottom: 1rem;
+}
+
+#exampleModal .modal-content .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+}
+
+.botonsend {
+    background-color: rgb(8, 73, 73);
+    border: none;
+    width: 30% !important;
+    height: 7% !important;
+    border-radius: 0 !important;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1rem !important;
+}
+
+/* 
+@media (min-width: 1180px) {
+    .contenedorprincipal {
+        display: flex !important;
+        flex-direction: column !important;
+    } */

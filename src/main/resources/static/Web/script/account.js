@@ -9,18 +9,16 @@ createApp({
     },
     created() {
         this.loadAccount();
-
     },
     methods: {
         loadAccount() {
             let queryParams = new URLSearchParams(window.location.search);
             let id = queryParams.get("id")
-            console.log(id)
-            axios
-                .get(`/api/accounts/${id}`)
+
+            axios.get(`/api/accounts/${id}`)
                 .then((response) => {
                     this.account = response.data
-                    this.transactions = response.data.transactions
+                    this.transactions = response.data.transactions.sort((a, b) => b.id - a.id)
                     console.log(transactions)
                 })
                 .catch((err) => console.log(err));
